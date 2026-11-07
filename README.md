@@ -22,3 +22,7 @@ Counts and source fingerprints come from [the data run](results/data_stats.json)
 ## Limitations
 
 Deepset contains English, German, and other languages, including mixed-language texts. Its card gives no per-example language labels. Translations and paraphrases can cross partitions despite exact-text deduplication. The dataset card declares different licenses in its top-level and nested metadata. [Upstream dataset card](https://huggingface.co/datasets/deepset/prompt-injections/blob/4f61ecb038e9c3fb77e21034b22511b523772cdd/README.md)
+
+## Run the workbench
+
+Run `uv run python -m injclf.baselines` from the project root and open `artifacts/workbench.html` in a browser. The command trains the TF-IDF logistic regression baseline, chooses the threshold on validation, and writes the measured results to `results/tfidf.json`. The page scores pasted text on the device. Its Evaluation tab shows the saved run.

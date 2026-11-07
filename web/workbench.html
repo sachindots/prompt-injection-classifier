@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prompt checker · Injection workbench</title>
+<style>
+:root{color-scheme:dark;--bg:#101617;--surface:#192223;--line:#3b4948;--mint:#9ee6c4;--muted:#b4c2be;--text:#eff3ed}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.55 Inter,system-ui,sans-serif}main{max-width:1140px;margin:auto;padding:0 clamp(18px,4vw,55px) 40px}header,nav,.actions,footer{display:flex;align-items:center;gap:18px;flex-wrap:wrap}header{justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line)}header b{letter-spacing:-.04em;font-size:19px}.mark{display:inline-block;color:var(--mint);margin-right:8px}a{color:var(--mint);text-underline-offset:5px}nav a{color:var(--muted);text-decoration:none;font-size:15px}nav a[aria-current=page]{color:var(--mint);text-decoration:underline}h1{font-size:clamp(40px,7vw,74px);line-height:1.1;letter-spacing:-.065em;margin:44px 0 10px;font-weight:580}p{margin:0 0 18px;color:var(--muted)}.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);border:1px solid var(--line);margin:28px 0 0;background:var(--surface)}.pane{padding:clamp(18px,3vw,32px)}.pane+.pane{border-left:1px solid var(--line)}label,h2{display:block;font-weight:600;font-size:18px;margin:0 0 12px}textarea{display:block;background:#101818;color:var(--text);font:16px/1.65 ui-monospace,monospace;border:1px solid #53625e;border-radius:4px;width:100%;min-height:200px;padding:15px;resize:vertical}button,select{font:inherit;padding:9px 14px;border:1px solid var(--line);border-radius:4px;background:#202d2b;color:var(--text);cursor:pointer}button.primary{background:var(--mint);color:#122a20;font-weight:650}.actions{gap:10px;margin-top:16px}button:focus-visible,a:focus-visible,summary:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #f0bb74;outline-offset:2px}small,dt,footer{font:13px/1.6 ui-monospace,monospace;color:var(--muted)}#verdict{font-size:29px;line-height:1.25;letter-spacing:-.04em;margin:16px 0;color:var(--mint)}#verdict.flag{color:#f5bd84}details{border-top:1px solid var(--line);padding:14px 0}summary{cursor:pointer}dl{margin:12px 0}dd{margin:0 0 10px}footer{border-top:1px solid var(--line);padding:17px 0;margin-top:28px;justify-content:space-between}.case{margin-bottom:15px}.case select{margin:4px 0}table{width:100%;border-collapse:collapse;margin:10px 0 25px}th,td{text-align:right;border-bottom:1px solid var(--line);padding:12px 6px}th:first-child{text-align:left}.chart{display:inline-block;height:8px;background:var(--mint);vertical-align:middle}.tablewrap{overflow:auto}section h2{margin-top:25px}.pane h2{margin-top:0}@media(max-width:730px){.grid{grid-template-columns:1fr}.pane+.pane{border-left:0;border-top:1px solid var(--line)}h1{margin-top:28px}header{gap:8px}td,th{font-size:14px}}
+</style>
+<main><header><b><span class="mark" aria-hidden="true">▥</span> Injection workbench</b><nav aria-label="Main navigation"><a href="#checker">Checker</a><a href="#evaluation">Evaluation</a></nav></header>
+<section id="checker"><h1>Check a prompt.</h1><p>Scan a user question or retrieved passage for a likely prompt injection.</p>
+<div class="grid"><div class="pane"><div class="case" id="casePanel" hidden><label for="field">RAG case · unsafe SQL</label><select id="field"><option value="question">User question</option><option value="injected_document">Retrieved passage</option></select><br><small id="source"></small></div><label for="input">Text to check</label><textarea id="input" placeholder="Paste text here…" required></textarea><div class="actions"><button class="primary" id="check">Check text</button><button id="example">Try a real RAG case</button></div></div>
+<div class="pane"><h2>Verdict</h2><div role="status" id="verdict">Ready to check</div><p id="hint">The check runs in your browser.</p><details id="details" hidden><summary>Decision details</summary><dl><dt>Model</dt><dd>TF-IDF + logistic regression</dd><dt>Injection score</dt><dd id="score"></dd><dt>Flag when score exceeds</dt><dd id="threshold"></dd></dl></details></div></div></section>
+<section id="evaluation" hidden><h1>Evaluation</h1><p>TF-IDF + logistic regression · threshold selected on validation F1</p><h2>Baseline results</h2><div class="tablewrap"><table><thead><tr><th>Partition</th><th>F1</th><th>Average precision</th><th>False positives / benign</th></tr></thead><tbody id="metrics"></tbody></table></div><h2>Dataset composition</h2><table><thead><tr><th>Partition</th><th>Relative size</th><th>Benign</th><th>Injection</th></tr></thead><tbody id="counts"></tbody></table><p>The external RAG suite contains three attacks. Its results are a smoke test.</p></section>
+<footer><span>TF-IDF baseline · local inference</span><a id="dataset">Training data ↗</a></footer></main>
+<script type="application/json" id="model">__PAYLOAD__</script>
+<script>
+const data = JSON.parse(document.getElementById("model").textContent);
+const el = id => document.getElementById(id);
+function injectionScore(text) {
+  const counts = new Map();
+  for (const [token] of text.toLowerCase().matchAll(/[\p{L}\p{N}_]{2,}/gu)) {
+    if (Object.hasOwn(data.terms,token)) counts.set(token,(counts.get(token)||0)+1);
+  }
+  let squared=0, sum=0;
+  for (const [token,count] of counts) {
+    const [idf,coef]=data.terms[token], weight=count*idf;
+    squared+=weight*weight;
+    sum+=weight*coef;
+  }
+  return 1/(1+Math.exp(-(data.intercept+(squared?sum/Math.sqrt(squared):0))));
+}
+function reset() {
+  el("verdict").textContent="Ready to check";el("verdict").className="";
+  el("details").open=false;el("details").hidden=true;el("hint").textContent="The check runs in your browser.";
+}
+function check() {
+  const text=el("input").value;
+  if (!text.trim()) {reset();el("hint").textContent="Enter a question or passage first.";el("input").focus();return;}
+  const score=injectionScore(text), flagged=score>data.metrics.threshold;
+  el("verdict").textContent=flagged?"Likely injection":"No injection detected";
+  el("verdict").className=flagged?"flag":"";
+  el("hint").textContent="Lexical baseline prediction";
+  el("details").hidden=false;el("score").textContent=score.toFixed(6);el("threshold").textContent=data.metrics.threshold.toFixed(6);
+}
+function loadCase(){
+  const field=el("field").value;
+  el("input").value=data.case[field];reset();
+  el("source").textContent="attacks.jsonl / a003 · Source label: "+(field==="question"?"benign":"injection");
+}
+el("example").onclick=()=>{el("casePanel").hidden=false;loadCase();el("field").focus();};
+el("field").onchange=loadCase;el("check").onclick=check;
+el("input").oninput=()=>{el("casePanel").hidden=true;reset();};
+function route(){
+  const evaluation=location.hash==="#evaluation";
+  el("evaluation").hidden=!evaluation;el("checker").hidden=evaluation;
+  for(const a of document.querySelectorAll("nav a"))a.setAttribute("aria-current",a.hash===(evaluation?"#evaluation":"#checker")?"page":"false");
+}
+window.onhashchange=route;route();
+const names={train:"Training",validation:"Validation",test:"Test",held_out:"External RAG"};
+for(const [name,s] of Object.entries(data.metrics.splits))
+  el("metrics").insertAdjacentHTML("beforeend",`<tr><th>${names[name]}</th><td>${s.f1.toFixed(3)}</td><td>${s.average_precision.toFixed(3)}</td><td>${s.false_positives} / ${s.benign}</td></tr>`);
+const maxSize=Math.max(...Object.values(data.stats.splits).map(s=>s.total));
+for(const [name,s] of Object.entries(data.stats.splits))
+  el("counts").insertAdjacentHTML("beforeend",`<tr><th>${names[name]}</th><td><span class="chart" style="width:${s.total/maxSize*100}%"></span></td><td>${s.benign}</td><td>${s.injection}</td></tr>`);
+el("dataset").href="https://huggingface.co/datasets/deepset/prompt-injections/tree/"+data.stats.dataset_revision;
+</script></html>

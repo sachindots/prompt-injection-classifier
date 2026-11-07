@@ -1,0 +1,20 @@
+{
+  "model": "TF-IDF + logistic regression",
+  "threshold": 0.3981455218592189,
+  "splits": {
+    "test": {
+      "f1": 0.8411214953271028,
+      "roc_auc": 0.9467261904761904,
+      "average_precision": 0.9531474173485838,
+      "false_positives": 2,
+      "benign": 56
+    },
+    "held_out": {
+      "f1": 0.07142857142857142,
+      "roc_auc": 0.8846153846153846,
+      "average_precision": 0.6842105263157894,
+      "false_positives": 78,
+      "benign": 156
+    }
+  }
+}
