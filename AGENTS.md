@@ -11,7 +11,8 @@ Read PROJECT.md first. Work one milestone at a time, and finish its tests and re
 ## Rules
 
 - Every number in README.md must come from a file in `results/` that a real run produced. Never type, round up or estimate a metric.
-- The held-out set built from `../owasp-rag-eval/data/attacks.jsonl` never touches training or threshold selection.
+- Keep all examples from the sibling RAG dataset out of training and threshold selection.
+- Link built-in UI examples to their dataset row or local case ID. Identify source labels separately from model predictions. Show predictions only from inference and benchmark metrics only from real run artifacts.
 - Never modify files in `../owasp-rag-eval/data/`.
 - Commit small, working steps with the real current date. Never set `GIT_AUTHOR_DATE` or `GIT_COMMITTER_DATE`, and never rewrite pushed history.
 - Write commit messages, comments and docs as plain descriptions of the change. Do not mention AI tools or assistants anywhere.
