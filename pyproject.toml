@@ -1,0 +1,12 @@
+[project]
+name = "injclf"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = ["datasets>=3", "scikit-learn>=1.5"]
+
+[build-system]
+requires = ["uv_build>=0.8,<0.12"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = ["pytest", "ruff"]

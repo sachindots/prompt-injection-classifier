@@ -1,0 +1,4 @@
+dataset_revision = "4f61ecb038e9c3fb77e21034b22511b523772cdd"
+owasp_data = "../../owasp-rag-eval/data"
+seed = 42
+validation_fraction = 0.2

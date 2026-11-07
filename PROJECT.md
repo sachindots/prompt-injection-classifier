@@ -9,7 +9,7 @@ Fine-tune a small encoder model to detect prompt injections, measure it against 
 ## Data
 
 - `deepset/prompt-injections` on Hugging Face. Check its size and language mix first, and record what you find in the README.
-- From `../owasp-rag-eval/data/`: the injected documents and questions in `attacks.jsonl` (positives), and the questions in `golden.jsonl` (negatives).
+- Reserve the OWASP attack and golden files for external evaluation. In the current suite, direct attack questions and malicious documents are positive. The benign user questions accompanying injected documents and the golden questions are negative. Instructions to control assistant behavior or plant a false answer both count as injections.
 - Split with a fixed seed into train, validation and test. No text may appear in two splits after normalising case and whitespace.
 - Keep an extra held-out set built from the `owasp-rag-eval` attacks. It is never used for training or threshold choice. It shows how well the classifier generalises to attacks it never saw.
 
@@ -31,7 +31,7 @@ Report every model on the same test set and the same held-out set:
 - CPU latency per text, p50 and p95
 - model size on disk
 
-Choose the threshold on the validation set only, and never on the test set.
+Choose the threshold that maximizes validation F1 for each model. Use the same strict score > threshold comparison as the RAG caller and report benign false positives with their denominator.
 
 ## Stack
 
