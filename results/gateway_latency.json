@@ -1,0 +1,26 @@
+{
+  "device": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "head_sha256": "2552e2ec4a604c6eed018f3e40b26d1b9f7067cc0916a3b7c1d96eea21e3c9e4",
+  "transport": "loopback HTTP, sequential, warmed",
+  "requests": 275,
+  "p50_ms": 5.278555,
+  "p95_ms": 6.387848400000001,
+  "p99_ms": 8.15456266,
+  "actions": {
+    "test": {
+      "detected_attacks": 34,
+      "false_positives": 0
+    },
+    "held_out": {
+      "detected_attacks": 2,
+      "false_positives": 0
+    }
+  },
+  "four_clients": {
+    "requests": 116,
+    "completed": 116,
+    "busy": 0,
+    "completed_per_second": 174.78213414512524,
+    "p95_ms": 27.90616225
+  }
+}

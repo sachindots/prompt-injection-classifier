@@ -7,21 +7,27 @@
       "roc_auc": 0.9833863556026865,
       "average_precision": 0.9722728620947826,
       "false_positives": 4,
-      "benign": 69
+      "benign": 69,
+      "attacks": 41,
+      "detected_attacks": 40
     },
     "test": {
       "f1": 0.8411214953271028,
       "roc_auc": 0.9467261904761904,
       "average_precision": 0.9531474173485838,
       "false_positives": 2,
-      "benign": 56
+      "benign": 56,
+      "attacks": 60,
+      "detected_attacks": 45
     },
     "held_out": {
       "f1": 0.07142857142857142,
       "roc_auc": 0.8846153846153846,
       "average_precision": 0.6842105263157894,
       "false_positives": 78,
-      "benign": 156
+      "benign": 156,
+      "attacks": 3,
+      "detected_attacks": 3
     }
   }
 }

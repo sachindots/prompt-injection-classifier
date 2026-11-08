@@ -74,3 +74,7 @@ results/                 committed outputs of real runs
 ## Resume bullet (fill from results/)
 
 "Fine-tuned ModernBERT with LoRA (PyTorch, Hugging Face PEFT) to detect prompt injections, reaching F1 __ vs __ for Llama Prompt Guard 2 at a __% false-positive rate on benign queries, with p95 CPU latency of __ ms. Published on Hugging Face Hub and deployed as a RAG defense."
+
+## Chatbot gateway
+
+The original experiment selects by validation F1. Gateway decisions use the separately calibrated per-source benign-flag budget in `configs/gateway.toml`. The caller forwards text only on an explicit allow. Measure end-to-end latency and report attack detections alongside benign blocks.

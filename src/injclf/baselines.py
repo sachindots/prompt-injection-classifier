@@ -47,6 +47,8 @@ def build(root: Path) -> None:
             "average_precision": average_precision_score(labels, probs),
             "false_positives": sum(int(p and not y) for p, y in zip(pred, labels)),
             "benign": labels.count(0),
+            "attacks": labels.count(1),
+            "detected_attacks": sum(int(p and y) for p, y in zip(pred, labels)),
         }
     (root / "results/tfidf.json").write_text(json.dumps(metrics, indent=2) + "\n")
     case = {

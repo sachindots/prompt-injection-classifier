@@ -1,0 +1,8 @@
+seed = 42
+benign_flag_budget = 0.02
+attack_url = "https://raw.githubusercontent.com/meta-llama/PurpleLlama/f64eebd53003a87d9c2d2a3a712133534c214c8d/CybersecurityBenchmarks/datasets/prompt_injection/prompt_injection.json"
+passages_url = "https://raw.githubusercontent.com/OWASP/CheatSheetSeries/757270a26306e5edda9957bb7f86cfcde03c30f9/cheatsheets/"
+sheets = ["Authentication", "Authorization", "Attack_Surface_Analysis", "Automotive_Security", "Bean_Validation", "Browser_Extension_Vulnerabilities", "Business_Logic_Security", "CI_CD_Security", "Clickjacking_Defense", "Content_Security_Policy", "Cookie_Theft_Mitigation", "Credential_Stuffing_Prevention", "Cross-Site_Request_Forgery_Prevention", "Cross_Site_Scripting_Prevention", "Cryptographic_Storage", "Database_Security", "Denial_of_Service", "Deserialization", "Session_Management", "SQL_Injection_Prevention"]
+encoder_depths = [6, 12, 22]
+regularization = 64.0
+human_attacks_url = "https://raw.githubusercontent.com/HumanCompatibleAI/tensor-trust-data/747a75e096761ebc01bd3970158827326b4add23/benchmarks/"

@@ -1,0 +1,702 @@
+[
+  {
+    "id": 20803,
+    "title": "How does SSL/TLS work?",
+    "author": "Polynomial",
+    "url": "https://security.stackexchange.com/questions/20803/how-does-ssl-tls-work",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 6095,
+    "title": "XKCD #936: Short complex password, or long dictionary passphrase?",
+    "author": "Billy ONeal",
+    "url": "https://security.stackexchange.com/questions/6095/xkcd-936-short-complex-password-or-long-dictionary-passphrase",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 211,
+    "title": "How to securely hash passwords?",
+    "author": "AviD",
+    "url": "https://security.stackexchange.com/questions/211/how-to-securely-hash-passwords",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 33470,
+    "title": "What technical reasons are there to have low maximum password lengths?",
+    "author": "enderland",
+    "url": "https://security.stackexchange.com/questions/33470/what-technical-reasons-are-there-to-have-low-maximum-password-lengths",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 4781,
+    "title": "Do any security experts recommend bcrypt for password storage?",
+    "author": "Sam Saffron",
+    "url": "https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage",
+    "license": null
+  },
+  {
+    "id": 17421,
+    "title": "How to store salt?",
+    "author": "George",
+    "url": "https://security.stackexchange.com/questions/17421/how-to-store-salt",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 4704,
+    "title": "How does changing your password every 90 days increase security?",
+    "author": "Bill the Lizard",
+    "url": "https://security.stackexchange.com/questions/4704/how-does-changing-your-password-every-90-days-increase-security",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 5126,
+    "title": "What's the difference between SSL, TLS, and HTTPS?",
+    "author": "jrdioko",
+    "url": "https://security.stackexchange.com/questions/5126/whats-the-difference-between-ssl-tls-and-https",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 25684,
+    "title": "How can I explain SQL injection without technical jargon?",
+    "author": "torayeff",
+    "url": "https://security.stackexchange.com/questions/25684/how-can-i-explain-sql-injection-without-technical-jargon",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 214814,
+    "title": "Why can I log in to my Facebook account with a misspelled email/password?",
+    "author": "aMJay",
+    "url": "https://security.stackexchange.com/questions/214814/why-can-i-log-in-to-my-facebook-account-with-a-misspelled-email-password",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 25585,
+    "title": "Is my developer's home-brew password security right or wrong, and why?",
+    "author": "nallenscott",
+    "url": "https://security.stackexchange.com/questions/25585/is-my-developers-home-brew-password-security-right-or-wrong-and-why",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 194353,
+    "title": "Police forcing me to install Jingwang spyware app, how to minimize impact?",
+    "author": "Citizen",
+    "url": "https://security.stackexchange.com/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 5096,
+    "title": "RSA vs. DSA for SSH authentication keys",
+    "author": "jrdioko",
+    "url": "https://security.stackexchange.com/questions/5096/rsa-vs-dsa-for-ssh-authentication-keys",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 29019,
+    "title": "Are passwords stored in memory safe?",
+    "author": "Antoine Pinsard",
+    "url": "https://security.stackexchange.com/questions/29019/are-passwords-stored-in-memory-safe",
+    "license": null
+  },
+  {
+    "id": 988,
+    "title": "Is BASIC-Auth secure if done over HTTPS?",
+    "author": "Morten",
+    "url": "https://security.stackexchange.com/questions/988/is-basic-auth-secure-if-done-over-https",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 46569,
+    "title": "Is it bad practice to use your real name online?",
+    "author": "blade19899",
+    "url": "https://security.stackexchange.com/questions/46569/is-it-bad-practice-to-use-your-real-name-online",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 108662,
+    "title": "Why is 'Bearer' required before the token in 'Authorization' header in a HTTP request?",
+    "author": "Anmol Gupta",
+    "url": "https://security.stackexchange.com/questions/108662/why-is-bearer-required-before-the-token-in-authorization-header-in-a-http-re",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 6290,
+    "title": "How is it possible that people observing an HTTPS connection being established wouldn't know how to decrypt it?",
+    "author": "Joshua Carmody",
+    "url": "https://security.stackexchange.com/questions/6290/how-is-it-possible-that-people-observing-an-https-connection-being-established-w",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 29988,
+    "title": "What is certificate pinning?",
+    "author": "Son of the Wai-Pan",
+    "url": "https://security.stackexchange.com/questions/29988/what-is-certificate-pinning",
+    "license": null
+  },
+  {
+    "id": 15076,
+    "title": "I found that the company I work for is putting a backdoor into mobile phones",
+    "author": "anonymousquery",
+    "url": "https://security.stackexchange.com/questions/15076/i-found-that-the-company-i-work-for-is-putting-a-backdoor-into-mobile-phones",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 74345,
+    "title": "Provide subjectAltName to openssl directly on the command line",
+    "author": "Michael Seiwald",
+    "url": "https://security.stackexchange.com/questions/74345/provide-subjectaltname-to-openssl-directly-on-the-command-line",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 36198,
+    "title": "How to find live hosts on my network?",
+    "author": "TheRookierLearner",
+    "url": "https://security.stackexchange.com/questions/36198/how-to-find-live-hosts-on-my-network",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 19911,
+    "title": "CRIME - How to beat the BEAST successor?",
+    "author": "Kyle Rosendo",
+    "url": "https://security.stackexchange.com/questions/19911/crime-how-to-beat-the-beast-successor",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 169642,
+    "title": "Is Docker more secure than VMs or bare metal?",
+    "author": "Arseni Mourzenko",
+    "url": "https://security.stackexchange.com/questions/169642/is-docker-more-secure-than-vms-or-bare-metal",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 192535,
+    "title": "Should I let my child's school have access to my kid's personal laptop?",
+    "author": "Sushil",
+    "url": "https://security.stackexchange.com/questions/192535/should-i-let-my-childs-school-have-access-to-my-kids-personal-laptop",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 128412,
+    "title": "SQL injection is 17 years old. Why is it still around?",
+    "author": "Ishan Mathur",
+    "url": "https://security.stackexchange.com/questions/128412/sql-injection-is-17-years-old-why-is-it-still-around",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 172148,
+    "title": "Is it normal for auditors to require all company passwords?",
+    "author": "Zachary Iles",
+    "url": "https://security.stackexchange.com/questions/172148/is-it-normal-for-auditors-to-require-all-company-passwords",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 45963,
+    "title": "\"Diffie-Hellman Key Exchange\" in plain English",
+    "author": "user15119",
+    "url": "https://security.stackexchange.com/questions/45963/diffie-hellman-key-exchange-in-plain-english",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 47293,
+    "title": "How can someone go off-web, and anonymise themselves after a life online?",
+    "author": "Rory Alsop",
+    "url": "https://security.stackexchange.com/questions/47293/how-can-someone-go-off-web-and-anonymise-themselves-after-a-life-online",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 201210,
+    "title": "Why is Gbt3fC79ZmMEFUFJ a weak password?",
+    "author": "EuRBamarth",
+    "url": "https://security.stackexchange.com/questions/201210/why-is-gbt3fc79zmmefufj-a-weak-password",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 34972,
+    "title": "What's the rationale behind Ctrl-Alt-Del for login",
+    "author": "Count Zero",
+    "url": "https://security.stackexchange.com/questions/34972/whats-the-rationale-behind-ctrl-alt-del-for-login",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 143442,
+    "title": "What are ssh-keygen best practices?",
+    "author": "Tom Hale",
+    "url": "https://security.stackexchange.com/questions/143442/what-are-ssh-keygen-best-practices",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 18197,
+    "title": "Why shouldn't we roll our own?",
+    "author": "Polynomial",
+    "url": "https://security.stackexchange.com/questions/18197/why-shouldnt-we-roll-our-own",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 137418,
+    "title": "How does Google know where I am?",
+    "author": "MNLR",
+    "url": "https://security.stackexchange.com/questions/137418/how-does-google-know-where-i-am",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 166724,
+    "title": "Should I use CSRF protection on Rest API endpoints?",
+    "author": "Conor Mancone",
+    "url": "https://security.stackexchange.com/questions/166724/should-i-use-csrf-protection-on-rest-api-endpoints",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 161071,
+    "title": "How did \"tech-supportcenter\" phishers trick Google?",
+    "author": "browly",
+    "url": "https://security.stackexchange.com/questions/161071/how-did-tech-supportcenter-phishers-trick-google",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 3272,
+    "title": "Password Hashing: add salt + pepper or is salt enough?",
+    "author": "Jacco",
+    "url": "https://security.stackexchange.com/questions/3272/password-hashing-add-salt-pepper-or-is-salt-enough",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 35157,
+    "title": "How does Google Authenticator work?",
+    "author": "user15194",
+    "url": "https://security.stackexchange.com/questions/35157/how-does-google-authenticator-work",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 24896,
+    "title": "How do certification authorities store their private root keys?",
+    "author": "lynks",
+    "url": "https://security.stackexchange.com/questions/24896/how-do-certification-authorities-store-their-private-root-keys",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 11717,
+    "title": "Why are hash functions one way? If I know the algorithm, why can't I calculate the input from it?",
+    "author": "Mucker",
+    "url": "https://security.stackexchange.com/questions/11717/why-are-hash-functions-one-way-if-i-know-the-algorithm-why-cant-i-calculate-t",
+    "license": null
+  },
+  {
+    "id": 20706,
+    "title": "What is the difference between authorized_keys and known_hosts file for SSH?",
+    "author": "Ankit",
+    "url": "https://security.stackexchange.com/questions/20706/what-is-the-difference-between-authorized-keys-and-known-hosts-file-for-ssh",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 51959,
+    "title": "Why are salted hashes more secure for password storage?",
+    "author": "user40448",
+    "url": "https://security.stackexchange.com/questions/51959/why-are-salted-hashes-more-secure-for-password-storage",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 55343,
+    "title": "How to explain Heartbleed without technical terms?",
+    "author": "user36976",
+    "url": "https://security.stackexchange.com/questions/55343/how-to-explain-heartbleed-without-technical-terms",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 118077,
+    "title": "Is the save button delay in a Firefox download dialog a security feature? What does it protect?",
+    "author": "Numeron",
+    "url": "https://security.stackexchange.com/questions/118077/is-the-save-button-delay-in-a-firefox-download-dialog-a-security-feature-what-d",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 171356,
+    "title": "Consequences of the WPA2 KRACK attack",
+    "author": "Rory McCune",
+    "url": "https://security.stackexchange.com/questions/171356/consequences-of-the-wpa2-krack-attack",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 214784,
+    "title": "Can ads on a page read my password?",
+    "author": "scohe001",
+    "url": "https://security.stackexchange.com/questions/214784/can-ads-on-a-page-read-my-password",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 70719,
+    "title": "SSL3 \"POODLE\" Vulnerability",
+    "author": "tylerl",
+    "url": "https://security.stackexchange.com/questions/70719/ssl3-poodle-vulnerability",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 159331,
+    "title": "How is the \"WannaCry\" Malware spreading and how should users defend themselves from it?",
+    "author": "Rory McCune",
+    "url": "https://security.stackexchange.com/questions/159331/how-is-the-wannacry-malware-spreading-and-how-should-users-defend-themselves-f",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 51771,
+    "title": "Where do you store your personal private GPG key?",
+    "author": "Florian Margaine",
+    "url": "https://security.stackexchange.com/questions/51771/where-do-you-store-your-personal-private-gpg-key",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 181580,
+    "title": "Why is Math.random() not designed to be cryptographically secure?",
+    "author": "forest",
+    "url": "https://security.stackexchange.com/questions/181580/why-is-math-random-not-designed-to-be-cryptographically-secure",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 32003,
+    "title": "Passwords being sent in clear text due to users' mistake in typing it in the username field",
+    "author": "Lex",
+    "url": "https://security.stackexchange.com/questions/32003/passwords-being-sent-in-clear-text-due-to-users-mistake-in-typing-it-in-the-use",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 49782,
+    "title": "Is Telegram secure?",
+    "author": "ilazgo",
+    "url": "https://security.stackexchange.com/questions/49782/is-telegram-secure",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 62832,
+    "title": "Is \"the oft-cited XKCD scheme [...] no longer good advice\"?",
+    "author": "Nick T",
+    "url": "https://security.stackexchange.com/questions/62832/is-the-oft-cited-xkcd-scheme-no-longer-good-advice",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 3959,
+    "title": "Recommended # of iterations when using PBKDF2-SHA256?",
+    "author": "Tails",
+    "url": "https://security.stackexchange.com/questions/3959/recommended-of-iterations-when-using-pbkdf2-sha256",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 32367,
+    "title": "What is the difference between https://google.com and https://encrypted.google.com?",
+    "author": "BlueBerry - Vignesh4303",
+    "url": "https://security.stackexchange.com/questions/32367/what-is-the-difference-between-https-google-com-and-https-encrypted-google-c",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 104576,
+    "title": "My college is forcing me to install their SSL certificate. How to protect my privacy?",
+    "author": "svetaketu",
+    "url": "https://security.stackexchange.com/questions/104576/my-college-is-forcing-me-to-install-their-ssl-certificate-how-to-protect-my-pri",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 40050,
+    "title": "Best Practice: \u201dseparate ssh-key per host and user\u201c vs. \u201done ssh-key for all hosts\u201c",
+    "author": "static",
+    "url": "https://security.stackexchange.com/questions/40050/best-practice-separate-ssh-key-per-host-and-user-vs-one-ssh-key-for-all-hos",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 1599,
+    "title": "What is the difference between SSL vs SSH? Which is more secure?",
+    "author": "Am1rr3zA",
+    "url": "https://security.stackexchange.com/questions/1599/what-is-the-difference-between-ssl-vs-ssh-which-is-more-secure",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 200243,
+    "title": "All 0s (zeros) in a bank card's CVC code",
+    "author": "Vlad Nikiforov",
+    "url": "https://security.stackexchange.com/questions/200243/all-0s-zeros-in-a-bank-cards-cvc-code",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 131106,
+    "title": "Is there any reason to disable paste password on login?",
+    "author": "IAmJulianAcosta",
+    "url": "https://security.stackexchange.com/questions/131106/is-there-any-reason-to-disable-paste-password-on-login",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 202902,
+    "title": "Is single quote filtering nonsense?",
+    "author": "Peter Walser",
+    "url": "https://security.stackexchange.com/questions/202902/is-single-quote-filtering-nonsense",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 191460,
+    "title": "Why did I have to wave my hand in front of my ID card?",
+    "author": "Tom K.",
+    "url": "https://security.stackexchange.com/questions/191460/why-did-i-have-to-wave-my-hand-in-front-of-my-id-card",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 57909,
+    "title": "Why would you not permit Q or Z in passwords?",
+    "author": "Mark Mayo",
+    "url": "https://security.stackexchange.com/questions/57909/why-would-you-not-permit-q-or-z-in-passwords",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 406,
+    "title": "How should I distribute my public key?",
+    "author": "Roger C S Wernersson",
+    "url": "https://security.stackexchange.com/questions/406/how-should-i-distribute-my-public-key",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 122507,
+    "title": "Tracing the location of a mobile IP from an email",
+    "author": "kjh03",
+    "url": "https://security.stackexchange.com/questions/122507/tracing-the-location-of-a-mobile-ip-from-an-email",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 55116,
+    "title": "How exactly does the OpenSSL TLS heartbeat (Heartbleed) exploit work?",
+    "author": "user43639",
+    "url": "https://security.stackexchange.com/questions/55116/how-exactly-does-the-openssl-tls-heartbeat-heartbleed-exploit-work",
+    "license": null
+  },
+  {
+    "id": 3936,
+    "title": "Is a rand from /dev/urandom secure for a login key?",
+    "author": "Incognito",
+    "url": "https://security.stackexchange.com/questions/3936/is-a-rand-from-dev-urandom-secure-for-a-login-key",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 8145,
+    "title": "Does https prevent man in the middle attacks by proxy server?",
+    "author": "jojo",
+    "url": "https://security.stackexchange.com/questions/8145/does-https-prevent-man-in-the-middle-attacks-by-proxy-server",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 136379,
+    "title": "Is there any reason to not show users incorrectly entered passwords after a successful login?",
+    "author": "RaunakS",
+    "url": "https://security.stackexchange.com/questions/136379/is-there-any-reason-to-not-show-users-incorrectly-entered-passwords-after-a-succ",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 198005,
+    "title": "Is Plaid, a service which collects user\u2019s banking login information, safe to use?",
+    "author": "gfrung4",
+    "url": "https://security.stackexchange.com/questions/198005/is-plaid-a-service-which-collects-user-s-banking-login-information-safe-to-use",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 68122,
+    "title": "What is a specific example of how the Shellshock Bash bug could be exploited?",
+    "author": "Rob Bednark",
+    "url": "https://security.stackexchange.com/questions/68122/what-is-a-specific-example-of-how-the-shellshock-bash-bug-could-be-exploited",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 120748,
+    "title": "What should you do if you catch encryption ransomware mid-operation?",
+    "author": "Fiksdal",
+    "url": "https://security.stackexchange.com/questions/120748/what-should-you-do-if-you-catch-encryption-ransomware-mid-operation",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 6141,
+    "title": "Amount of simple operations that is safely out of reach for all humanity?",
+    "author": "Nakedible",
+    "url": "https://security.stackexchange.com/questions/6141/amount-of-simple-operations-that-is-safely-out-of-reach-for-all-humanity",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 45170,
+    "title": "How safe are password managers like LastPass?",
+    "author": "blended",
+    "url": "https://security.stackexchange.com/questions/45170/how-safe-are-password-managers-like-lastpass",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 126932,
+    "title": "How secure is 'blacking out' sensitive information using MS Paint?",
+    "author": "Mirsad",
+    "url": "https://security.stackexchange.com/questions/126932/how-secure-is-blacking-out-sensitive-information-using-ms-paint",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 172212,
+    "title": "How do mobile carriers know video resolution over HTTPS connections?",
+    "author": "raithyn",
+    "url": "https://security.stackexchange.com/questions/172212/how-do-mobile-carriers-know-video-resolution-over-https-connections",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 25375,
+    "title": "Why not use larger cipher keys?",
+    "author": "Koning",
+    "url": "https://security.stackexchange.com/questions/25375/why-not-use-larger-cipher-keys",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 52115,
+    "title": "Don't understand how my mum's Gmail account was hacked",
+    "author": "cja",
+    "url": "https://security.stackexchange.com/questions/52115/dont-understand-how-my-mums-gmail-account-was-hacked",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 123234,
+    "title": "How can I explain to non-techie friends that \"cryptography is good\"?",
+    "author": "user28177",
+    "url": "https://security.stackexchange.com/questions/123234/how-can-i-explain-to-non-techie-friends-that-cryptography-is-good",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 50878,
+    "title": "ECDSA vs ECDH vs Ed25519 vs Curve25519",
+    "author": "Omar",
+    "url": "https://security.stackexchange.com/questions/50878/ecdsa-vs-ecdh-vs-ed25519-vs-curve25519",
+    "license": null
+  },
+  {
+    "id": 23383,
+    "title": "SSH key-type, rsa, dsa, ecdsa, are there easy answers for which to choose when?",
+    "author": "user50849",
+    "url": "https://security.stackexchange.com/questions/23383/ssh-key-type-rsa-dsa-ecdsa-are-there-easy-answers-for-which-to-choose-when",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 199971,
+    "title": "Search for military installed backdoors on laptop",
+    "author": "Posse",
+    "url": "https://security.stackexchange.com/questions/199971/search-for-military-installed-backdoors-on-laptop",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 39118,
+    "title": "How can I protect myself from this kind of clipboard abuse?",
+    "author": "sam hocevar",
+    "url": "https://security.stackexchange.com/questions/39118/how-can-i-protect-myself-from-this-kind-of-clipboard-abuse",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 96713,
+    "title": "How does Windows 10 allow Microsoft to spy on you?",
+    "author": "user83026",
+    "url": "https://security.stackexchange.com/questions/96713/how-does-windows-10-allow-microsoft-to-spy-on-you",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 167412,
+    "title": "Isn't Ubuntu's system prompt for my password spoofable?",
+    "author": "Arseni Mourzenko",
+    "url": "https://security.stackexchange.com/questions/167412/isnt-ubuntus-system-prompt-for-my-password-spoofable",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 90077,
+    "title": "SSH Key: Ed25519 vs RSA",
+    "author": "Ben Richard",
+    "url": "https://security.stackexchange.com/questions/90077/ssh-key-ed25519-vs-rsa",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 20129,
+    "title": "How and when do I use HMAC?",
+    "author": "user5575",
+    "url": "https://security.stackexchange.com/questions/20129/how-and-when-do-i-use-hmac",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 39231,
+    "title": "How do I deal with a compromised server?",
+    "author": "Lucas Kauffman",
+    "url": "https://security.stackexchange.com/questions/39231/how-do-i-deal-with-a-compromised-server",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 53481,
+    "title": "Does Facebook store plain-text passwords?",
+    "author": "Micha\u0142 \u0160rajer",
+    "url": "https://security.stackexchange.com/questions/53481/does-facebook-store-plain-text-passwords",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 3989,
+    "title": "How to determine what type of encoding/encryption has been used?",
+    "author": "Karthik",
+    "url": "https://security.stackexchange.com/questions/3989/how-to-determine-what-type-of-encoding-encryption-has-been-used",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 138996,
+    "title": "Is the NHS wrong about passwords?",
+    "author": "Robin Winslow",
+    "url": "https://security.stackexchange.com/questions/138996/is-the-nhs-wrong-about-passwords",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 49234,
+    "title": "Why are chips safer than magnetic stripes?",
+    "author": "Thomas",
+    "url": "https://security.stackexchange.com/questions/49234/why-are-chips-safer-than-magnetic-stripes",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 138606,
+    "title": "Help! My home PC has been infected by a virus! What do I do now?",
+    "author": "Anders",
+    "url": "https://security.stackexchange.com/questions/138606/help-my-home-pc-has-been-infected-by-a-virus-what-do-i-do-now",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 32917,
+    "title": "How is an ATM secure?",
+    "author": "asteri",
+    "url": "https://security.stackexchange.com/questions/32917/how-is-an-atm-secure",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 56863,
+    "title": "What is the purpose of \"gibberish\" comments posted to my blog?",
+    "author": "IQAndreas",
+    "url": "https://security.stackexchange.com/questions/56863/what-is-the-purpose-of-gibberish-comments-posted-to-my-blog",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 6758,
+    "title": "Can webcams be turned on without the indicator light?",
+    "author": "user4610",
+    "url": "https://security.stackexchange.com/questions/6758/can-webcams-be-turned-on-without-the-indicator-light",
+    "license": "CC BY-SA 4.0"
+  },
+  {
+    "id": 121163,
+    "title": "How do I\u00a0run proper HTTPS on an Internal Network?",
+    "author": "alficles",
+    "url": "https://security.stackexchange.com/questions/121163/how-do-i-run-proper-https-on-an-internal-network",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 3056,
+    "title": "How secure are virtual machines really? False sense of security?",
+    "author": "T. Webster",
+    "url": "https://security.stackexchange.com/questions/3056/how-secure-are-virtual-machines-really-false-sense-of-security",
+    "license": null
+  },
+  {
+    "id": 115044,
+    "title": "Why can't the FBI read the key embedded in the iPhone's secure chip/ROM directly from hardware (silicon)?",
+    "author": "user9806",
+    "url": "https://security.stackexchange.com/questions/115044/why-cant-the-fbi-read-the-key-embedded-in-the-iphones-secure-chip-rom-directly",
+    "license": "CC BY-SA 3.0"
+  },
+  {
+    "id": 63392,
+    "title": "What is a good analogy to explain to a layman why passwords should be hashed?",
+    "author": "Nzall",
+    "url": "https://security.stackexchange.com/questions/63392/what-is-a-good-analogy-to-explain-to-a-layman-why-passwords-should-be-hashed",
+    "license": "CC BY-SA 3.0"
+  }
+]

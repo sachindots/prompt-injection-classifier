@@ -5,3 +5,7 @@ train:
 
 eval:
 	uv run python -m injclf.evaluate
+
+.PHONY: gateway
+gateway:
+	uv run python -m injclf.policy

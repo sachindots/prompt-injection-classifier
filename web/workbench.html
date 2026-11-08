@@ -71,12 +71,50 @@ th:first-child { text-align: left }
   header { min-height: 62px } header b { font-size: 16px; gap: 6px } nav { gap: 12px }
   h1 { margin-top: 28px } nav a { font-size: 13px } td, th { padding: 10px 5px; font-size: 13px }
 }
+pre { overflow:auto; padding:18px; background:var(--panel); border-left:2px solid var(--accent); font:14px/1.6 var(--mono) }
+.reference { grid-template-columns:minmax(72px,100px) 1fr; max-width:80ch }
+@media(max-width:650px){header{flex-wrap:wrap;gap:4px;padding-top:10px}nav{min-height:40px;flex-wrap:wrap}}
 </style>
-<main><header><b><span class="mark" aria-hidden="true">[ / ]</span> Boundary</b><nav aria-label="Main navigation"><a href="#checker">Inspect</a><a href="#evaluation">Evaluation</a></nav></header>
+<main><header><b><span class="mark" aria-hidden="true">[ / ]</span> Boundary</b><nav aria-label="Main navigation"><a href="#checker">Inspect</a><a href="#evaluation">Evaluation</a><a href="#docs">API docs</a><a href="#how-to">How to</a></nav></header>
 <section id="checker"><h1>Prompt <em>inspection</em></h1><p>Inspect a question or retrieved passage for instructions that try to steer the model.</p>
 <div class="grid"><div class="pane"><div class="case" id="casePanel" hidden><label for="field">RAG case · unsafe SQL</label><select id="field"><option value="question">User question</option><option value="injected_document">Retrieved passage</option></select><br><small id="source"></small></div><div class="pane-title"><label for="input">Inspection text</label><span id="length"></span></div><textarea id="input" placeholder="Paste the question or passage exactly as the model receives it…" required></textarea><div class="actions"><button class="primary" id="check">Inspect text <span aria-hidden="true">↗</span></button><button class="case-link" id="example">Load a RAG case</button></div></div>
 <div class="pane"><h2>Verdict</h2><div role="status" id="verdict">Awaiting input</div><p id="hint">Submit a passage for on-device classification.</p><details id="details" hidden><summary>Decision details</summary><dl><dt>Model</dt><dd class="model-name"></dd><dt>Injection score</dt><dd id="score"></dd><dt>Decision threshold</dt><dd id="threshold"></dd></dl></details><p class="fieldnote"><span id="limit"></span> <a href="#evaluation">Review evaluation ↗</a></p></div></div></section>
-<section id="evaluation" hidden><h1>Model <em>evaluation</em></h1><p><span class="model-name"></span> · threshold selected on validation F1</p><h2>Model results</h2><div class="tablewrap"><table><thead><tr><th>Partition</th><th>F1</th><th>Average precision</th><th>False positives / benign</th></tr></thead><tbody id="metrics"></tbody></table></div><h2>Dataset composition</h2><table><thead><tr><th>Partition</th><th>Relative size</th><th>Benign</th><th>Injection</th></tr></thead><tbody id="counts"></tbody></table><p>The external RAG suite contains only three attacks. Its benign questions show how often ordinary security guidance triggers the detector.</p></section>
+<section id="evaluation" hidden><h1>Model <em>evaluation</em></h1><p><span class="model-name"></span> · <span id="policyNote">threshold selected on validation F1</span></p><h2>Model results</h2><div class="tablewrap"><table><thead><tr><th>Partition</th><th>F1</th><th>Average precision</th><th>Attacks detected / total</th><th>Benign flagged / total</th></tr></thead><tbody id="metrics"></tbody></table></div><h2>Original benchmark composition</h2><table><thead><tr><th>Partition</th><th>Relative size</th><th>Benign</th><th>Injection</th></tr></thead><tbody id="counts"></tbody></table><p id="speed" hidden></p><p>The external RAG suite contains only three attacks. Its benign questions show how often ordinary security guidance triggers the detector.</p></section>
+<section id="docs" hidden><h1>Decision <em>API</em></h1>
+<p>Boundary checks one text before your application calls a model. Run it alongside your chatbot backend and send requests over loopback.</p>
+<h2>POST /v1/check</h2>
+<pre><code>curl --fail-with-body http://127.0.0.1:8765/v1/check \
+  -H 'Content-Type: application/json' \
+  -d '{"text":"How should I prevent SQL injection?"}'</code></pre>
+<p>Send a nonempty JSON string in the <code>text</code> field. The whole encoded request may contain up to 65,536 bytes. A successful check returns HTTP 200 for either decision.</p>
+<dl class="reference"><dt>action</dt><dd><code>block</code> if the score exceeds the frozen gateway threshold. Otherwise <code>allow</code>.</dd><dt>score</dt><dd>Highest injection score across overlapping input windows. Treat it as a ranking score.</dd><dt>threshold</dt><dd>Cutoff used for this decision. Let the service apply it at full precision.</dd><dt>model</dt><dd>Name of the detector that scored the text.</dd><dt>device</dt><dd>Local hardware used for inference.</dd></dl>
+<h2>Failure handling</h2><p>400 means invalid input, 413 means the body exceeds the limit, and 415 requires JSON content. A request can wait up to 100 ms for the inference slot. If the worker is still busy, the service returns 503. On a timeout, malformed response, or any error, withhold the provider call. Offer a retry for temporary failures.</p>
+<h2>Policy and sources</h2><p>The gateway chooses its cutoff against a 2% empirical benign-flag budget in each validation group. Security question titles and ordinary cheat-sheet passages serve as benign examples by source. Attack variants and documents are grouped before splitting. Your chatbot’s traffic may have a different error rate. The held-out audit groups were inspected during development; treat these results as an observed benchmark.</p><p><a href="https://github.com/meta-llama/PurpleLlama/tree/f64eebd53003a87d9c2d2a3a712133534c214c8d/CybersecurityBenchmarks/datasets/prompt_injection">CyberSecEval</a> · <a href="https://github.com/OWASP/CheatSheetSeries/tree/757270a26306e5edda9957bb7f86cfcde03c30f9">OWASP Cheat Sheet Series</a> · <a href="https://security.stackexchange.com/questions">Information Security Stack Exchange</a> · <a href="https://github.com/HumanCompatibleAI/tensor-trust-data">Tensor Trust</a></p><h2>Deployment boundary</h2><p>This service listens on the same machine as your application. Put authentication, TLS, and rate limits at your own application boundary before offering remote access. Inspect each untrusted passage and user message separately. The model has been evaluated on text inputs. Tools still need their own authorization checks.</p></section>
+<section id="how-to" hidden><h1>Protect a <em>chatbot</em></h1>
+<p>Place the decision in the backend that owns the provider credentials. Only the allow branch reaches the chatbot.</p>
+<h2>Start the local service</h2><pre><code>uv sync --locked
+uv run python -m injclf.serve</code></pre><p>Run these commands from the classifier checkout with the gateway encoder and classification head in <code>artifacts/gateway</code> and the matching gateway policy in <code>results/gateway.json</code>.</p>
+<h2>Guard your provider call</h2><pre><code>from injclf.gateway import guarded_call
+
+def reply(user_text, send_to_provider):
+    try:
+        return guarded_call(user_text, send_to_provider)
+    except PermissionError:
+        return "This message was flagged for review."</code></pre><p>Pass your existing provider function as <code>send_to_provider</code>. The helper sends the original text only after an explicit allow. Map service errors to an unavailable response in your backend. The same HTTP contract works with a local model or a hosted provider.</p>
+<h2>Use the HTTP API from JavaScript</h2><pre><code>async function guardedReply(text, callModel) {
+  const res = await fetch("http://127.0.0.1:8765/v1/check", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
+    signal: AbortSignal.timeout(2000)
+  });
+  if (!res.ok) throw new Error("Inspection unavailable");
+  const { action } = await res.json();
+  if (action === "block") return "Flagged for review.";
+  if (action !== "allow") throw new Error("Invalid decision");
+  return callModel(text);
+}</code></pre><h2>Handle retrieved passages</h2><p>Check the user message before retrieval. Check each retrieved passage before adding it to model context. Drop blocked passages and keep source labels separate from model verdicts. If a check fails, stop the request before inference.</p>
+<h2>Verify the connection</h2><p>Use <strong>Load a RAG case</strong> in Inspect to compare the SQL question with its retrieved passage. During rollout, measure missed attacks and benign blocks on your own traffic. <a href="#evaluation">See the measured tradeoff</a>.</p></section>
 <footer><span><span class="model-name"></span> · local inference</span><a id="dataset">Training data ↗</a></footer></main>
 <script type="application/json" id="model">__PAYLOAD__</script>
 <script>
@@ -111,14 +149,17 @@ async function check() {
   if (!text.trim()) {reset();el("hint").textContent="Enter a question or passage first.";el("input").focus();return;}
   reset();
   const request=sequence;
-  let score;
+  let score,action;
+  let threshold=data.metrics.threshold;
   if(data.endpoint){
     el("check").disabled=true;
     el("verdict").textContent="Checking…";
     try {
       const response=await fetch(data.endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text})});
       if(!response.ok) throw new Error(await response.text());
-      score=(await response.json()).score;
+      const decision=await response.json();
+      if(!Number.isFinite(decision.score) || !Number.isFinite(decision.threshold) || !["allow","block"].includes(decision.action))throw new Error("Invalid decision from the inspection service.");
+      ({score,action,threshold}=decision);
     } catch(error) {
       if(request===sequence){reset();el("hint").textContent="Check failed. "+error.message;}
       return;
@@ -126,11 +167,11 @@ async function check() {
     if(request!==sequence)return;
     el("check").disabled=false;
   } else { score=injectionScore(text); }
-  const flagged=score>data.metrics.threshold;
-  el("verdict").textContent=flagged?"Likely injection":"No injection detected";
+  const flagged=data.endpoint ? action==="block" : score>threshold;
+  el("verdict").textContent=flagged?"Flagged for review":"No injection detected";
   el("verdict").className=flagged?"flag":"";
   el("hint").textContent=flagged?"The injection score exceeded the decision threshold. Review the passage before using it as context.":"The injection score stayed at or below the decision threshold.";
-  el("details").hidden=false;el("score").textContent=score.toFixed(6);el("threshold").textContent=data.metrics.threshold.toFixed(6);
+  el("details").hidden=false;el("score").textContent=score.toPrecision(12);el("threshold").textContent=threshold.toPrecision(12);
 }
 function loadCase(){
   const field=el("field").value;
@@ -141,16 +182,22 @@ el("example").onclick=()=>{el("casePanel").hidden=false;loadCase();el("field").f
 el("field").onchange=loadCase;el("check").onclick=check;
 el("input").oninput=()=>{el("casePanel").hidden=true;reset();};
 function route(){
-  const evaluation=location.hash==="#evaluation";
-  el("evaluation").hidden=!evaluation;el("checker").hidden=evaluation;
-  for(const a of document.querySelectorAll("nav a"))a.setAttribute("aria-current",a.hash===(evaluation?"#evaluation":"#checker")?"page":"false");
+  const pages=["checker","evaluation","docs","how-to"];
+  const active=pages.includes(location.hash.slice(1))?location.hash.slice(1):"checker";
+  for(const id of pages) el(id).hidden=id!==active;
+  for(const a of document.querySelectorAll("nav a"))a.setAttribute("aria-current",a.hash==="#"+active?"page":"false");
 }
 window.onhashchange=route;route();reset();
 const external=data.metrics.splits.held_out;
 el("limit").textContent=`This model flagged ${external.false_positives} of ${external.benign} benign texts in the external RAG evaluation.`;
-const names={train:"Training",validation:"Validation",test:"Test",held_out:"External RAG"};
+if(data.endpoint) el("policyNote").textContent="gateway threshold selected on independent security text";
+if(data.latency){
+  el("speed").hidden=false;
+  el("speed").textContent=`Local HTTP latency · p50 ${data.latency.p50_ms.toFixed(1)} ms · p95 ${data.latency.p95_ms.toFixed(1)} ms across ${data.latency.requests} warmed sequential checks on ${data.latency.device}.`;
+}
+const names={extraction_challenge:"Human extraction challenge",gateway_validation:"Gateway validation",gateway_audit:"Gateway audit",train:"Training",validation:"Validation",test:"Test",held_out:"External RAG"};
 for(const [name,s] of Object.entries(data.metrics.splits))
-  el("metrics").insertAdjacentHTML("beforeend",`<tr><th>${names[name]}</th><td>${s.f1.toFixed(3)}</td><td>${s.average_precision.toFixed(3)}</td><td>${s.false_positives} / ${s.benign}</td></tr>`);
+  el("metrics").insertAdjacentHTML("beforeend",`<tr><th>${names[name]}</th><td>${s.f1?.toFixed(3) ?? "—"}</td><td>${s.average_precision?.toFixed(3) ?? "—"}</td><td>${s.detected_attacks ?? "—"} / ${s.attacks ?? "—"}</td><td>${s.benign ? s.false_positives+" / "+s.benign : "—"}</td></tr>`);
 const maxSize=Math.max(...Object.values(data.stats.splits).map(s=>s.total));
 for(const [name,s] of Object.entries(data.stats.splits))
   el("counts").insertAdjacentHTML("beforeend",`<tr><th>${names[name]}</th><td><span class="chart" style="width:${s.total/maxSize*100}%"></span></td><td>${s.benign}</td><td>${s.injection}</td></tr>`);

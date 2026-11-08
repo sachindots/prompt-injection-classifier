@@ -1,0 +1,122 @@
+{
+  "model": "ModernBERT-base + LoRA",
+  "threshold": 0.9999999996509568,
+  "previous_threshold": 0.0014073807979002595,
+  "config": {
+    "seed": 42,
+    "benign_flag_budget": 0.02,
+    "attack_url": "https://raw.githubusercontent.com/meta-llama/PurpleLlama/f64eebd53003a87d9c2d2a3a712133534c214c8d/CybersecurityBenchmarks/datasets/prompt_injection/prompt_injection.json",
+    "passages_url": "https://raw.githubusercontent.com/OWASP/CheatSheetSeries/757270a26306e5edda9957bb7f86cfcde03c30f9/cheatsheets/",
+    "sheets": [
+      "Authentication",
+      "Authorization",
+      "Attack_Surface_Analysis",
+      "Automotive_Security",
+      "Bean_Validation",
+      "Browser_Extension_Vulnerabilities",
+      "Business_Logic_Security",
+      "CI_CD_Security",
+      "Clickjacking_Defense",
+      "Content_Security_Policy",
+      "Cookie_Theft_Mitigation",
+      "Credential_Stuffing_Prevention",
+      "Cross-Site_Request_Forgery_Prevention",
+      "Cross_Site_Scripting_Prevention",
+      "Cryptographic_Storage",
+      "Database_Security",
+      "Denial_of_Service",
+      "Deserialization",
+      "Session_Management",
+      "SQL_Injection_Prevention"
+    ]
+  },
+  "validation_benign": {
+    "question": 50,
+    "passage": 148
+  },
+  "weights_sha256": "2e02bc74b5c983542488bfa7a7a1b5face7e032e582389fc28e502def21982ca",
+  "splits": {
+    "gateway_audit": {
+      "attacks": 128,
+      "detected_attacks": 20,
+      "benign": 185,
+      "false_positives": 1,
+      "f1": 0.2684563758389262,
+      "average_precision": 0.5828224495526038
+    },
+    "gateway_validation": {
+      "attacks": 117,
+      "detected_attacks": 13,
+      "benign": 198,
+      "false_positives": 2,
+      "f1": 0.19696969696969696,
+      "average_precision": 0.5355941468622128
+    },
+    "validation": {
+      "attacks": 41,
+      "detected_attacks": 7,
+      "benign": 69,
+      "false_positives": 0,
+      "f1": 0.2916666666666667,
+      "average_precision": 0.9994192799070849
+    },
+    "test": {
+      "attacks": 60,
+      "detected_attacks": 8,
+      "benign": 56,
+      "false_positives": 0,
+      "f1": 0.23529411764705882,
+      "average_precision": 0.989045864045864
+    },
+    "held_out": {
+      "attacks": 3,
+      "detected_attacks": 0,
+      "benign": 156,
+      "false_positives": 0,
+      "f1": 0.0,
+      "average_precision": 1.0
+    }
+  },
+  "previous": {
+    "gateway_audit": {
+      "attacks": 128,
+      "detected_attacks": 112,
+      "benign": 185,
+      "false_positives": 155,
+      "f1": 0.5670886075949367,
+      "average_precision": 0.5828224495526038
+    },
+    "gateway_validation": {
+      "attacks": 117,
+      "detected_attacks": 113,
+      "benign": 198,
+      "false_positives": 166,
+      "f1": 0.5707070707070707,
+      "average_precision": 0.5355941468622128
+    },
+    "validation": {
+      "attacks": 41,
+      "detected_attacks": 41,
+      "benign": 69,
+      "false_positives": 1,
+      "f1": 0.9879518072289156,
+      "average_precision": 0.9994192799070849
+    },
+    "test": {
+      "attacks": 60,
+      "detected_attacks": 57,
+      "benign": 56,
+      "false_positives": 4,
+      "f1": 0.9421487603305785,
+      "average_precision": 0.989045864045864
+    },
+    "held_out": {
+      "attacks": 3,
+      "detected_attacks": 3,
+      "benign": 156,
+      "false_positives": 116,
+      "f1": 0.04918032786885246,
+      "average_precision": 1.0
+    }
+  }
+}
