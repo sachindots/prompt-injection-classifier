@@ -8,9 +8,9 @@
 <main><header><b><span class="mark" aria-hidden="true">▥</span> Injection workbench</b><nav aria-label="Main navigation"><a href="#checker">Checker</a><a href="#evaluation">Evaluation</a></nav></header>
 <section id="checker"><h1>Check a prompt.</h1><p>Scan a user question or retrieved passage for a likely prompt injection.</p>
 <div class="grid"><div class="pane"><div class="case" id="casePanel" hidden><label for="field">RAG case · unsafe SQL</label><select id="field"><option value="question">User question</option><option value="injected_document">Retrieved passage</option></select><br><small id="source"></small></div><label for="input">Text to check</label><textarea id="input" placeholder="Paste text here…" required></textarea><div class="actions"><button class="primary" id="check">Check text</button><button id="example">Try a real RAG case</button></div></div>
-<div class="pane"><h2>Verdict</h2><div role="status" id="verdict">Ready to check</div><p id="hint">The check runs in your browser.</p><details id="details" hidden><summary>Decision details</summary><dl><dt>Model</dt><dd>TF-IDF + logistic regression</dd><dt>Injection score</dt><dd id="score"></dd><dt>Flag when score exceeds</dt><dd id="threshold"></dd></dl></details></div></div></section>
-<section id="evaluation" hidden><h1>Evaluation</h1><p>TF-IDF + logistic regression · threshold selected on validation F1</p><h2>Baseline results</h2><div class="tablewrap"><table><thead><tr><th>Partition</th><th>F1</th><th>Average precision</th><th>False positives / benign</th></tr></thead><tbody id="metrics"></tbody></table></div><h2>Dataset composition</h2><table><thead><tr><th>Partition</th><th>Relative size</th><th>Benign</th><th>Injection</th></tr></thead><tbody id="counts"></tbody></table><p>The external RAG suite contains three attacks. Its results are a smoke test.</p></section>
-<footer><span>TF-IDF baseline · local inference</span><a id="dataset">Training data ↗</a></footer></main>
+<div class="pane"><h2>Verdict</h2><div role="status" id="verdict">Ready to check</div><p id="hint">The check runs in your browser.</p><details id="details" hidden><summary>Decision details</summary><dl><dt>Model</dt><dd class="model-name"></dd><dt>Injection score</dt><dd id="score"></dd><dt>Flag when score exceeds</dt><dd id="threshold"></dd></dl></details></div></div></section>
+<section id="evaluation" hidden><h1>Evaluation</h1><p><span class="model-name"></span> · threshold selected on validation F1</p><h2>Model results</h2><div class="tablewrap"><table><thead><tr><th>Partition</th><th>F1</th><th>Average precision</th><th>False positives / benign</th></tr></thead><tbody id="metrics"></tbody></table></div><h2>Dataset composition</h2><table><thead><tr><th>Partition</th><th>Relative size</th><th>Benign</th><th>Injection</th></tr></thead><tbody id="counts"></tbody></table><p>The external RAG suite is a smoke test.</p></section>
+<footer><span><span class="model-name"></span> · local inference</span><a id="dataset">Training data ↗</a></footer></main>
 <script type="application/json" id="model">__PAYLOAD__</script>
 <script>
 const data = JSON.parse(document.getElementById("model").textContent);
@@ -28,17 +28,40 @@ function injectionScore(text) {
   }
   return 1/(1+Math.exp(-(data.intercept+(squared?sum/Math.sqrt(squared):0))));
 }
+const idleHint = data.endpoint ? "The check runs on your local model server." : "The check runs in your browser.";
+el("hint").textContent=idleHint;
+document.querySelectorAll(".model-name").forEach(node=>node.textContent=data.metrics.model);
+let sequence=0;
 function reset() {
+  sequence++;
+  el("check").disabled=false;
   el("verdict").textContent="Ready to check";el("verdict").className="";
-  el("details").open=false;el("details").hidden=true;el("hint").textContent="The check runs in your browser.";
+  el("details").open=false;el("details").hidden=true;el("hint").textContent=idleHint;
 }
-function check() {
+async function check() {
   const text=el("input").value;
   if (!text.trim()) {reset();el("hint").textContent="Enter a question or passage first.";el("input").focus();return;}
-  const score=injectionScore(text), flagged=score>data.metrics.threshold;
+  reset();
+  const request=sequence;
+  let score;
+  if(data.endpoint){
+    el("check").disabled=true;
+    el("verdict").textContent="Checking…";
+    try {
+      const response=await fetch(data.endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text})});
+      if(!response.ok) throw new Error(await response.text());
+      score=(await response.json()).score;
+    } catch(error) {
+      if(request===sequence){reset();el("hint").textContent="Check failed. "+error.message;}
+      return;
+    }
+    if(request!==sequence)return;
+    el("check").disabled=false;
+  } else { score=injectionScore(text); }
+  const flagged=score>data.metrics.threshold;
   el("verdict").textContent=flagged?"Likely injection":"No injection detected";
   el("verdict").className=flagged?"flag":"";
-  el("hint").textContent="Lexical baseline prediction";
+  el("hint").textContent=data.metrics.model;
   el("details").hidden=false;el("score").textContent=score.toFixed(6);el("threshold").textContent=data.metrics.threshold.toFixed(6);
 }
 function loadCase(){

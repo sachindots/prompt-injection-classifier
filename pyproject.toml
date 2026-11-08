@@ -2,7 +2,13 @@
 name = "injclf"
 version = "0.1.0"
 requires-python = ">=3.12,<3.13"
-dependencies = ["datasets>=3", "scikit-learn>=1.5"]
+dependencies = [
+    "datasets>=3",
+    "peft==0.18.1",
+    "scikit-learn>=1.5",
+    "torch==2.8.0",
+    "transformers==4.57.6",
+]
 
 [build-system]
 requires = ["uv_build>=0.8,<0.12"]

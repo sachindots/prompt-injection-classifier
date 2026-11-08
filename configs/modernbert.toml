@@ -1,0 +1,10 @@
+base = "answerdotai/ModernBERT-base"
+revision = "8949b909ec900327062f0ebf497f51aef5e6f0c8"
+seed = 42
+epochs = 6
+batch_size = 8
+learning_rate = 0.00025
+max_length = 256
+stride = 64
+rank = 16
+alpha = 32

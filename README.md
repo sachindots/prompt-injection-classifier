@@ -26,3 +26,23 @@ Deepset contains English, German, and other languages, including mixed-language 
 ## Run the workbench
 
 Run `uv run python -m injclf.baselines` from the project root and open `artifacts/workbench.html` in a browser. The command trains the TF-IDF logistic regression baseline, chooses the threshold on validation, and writes the measured results to `results/tfidf.json`. The page scores pasted text on the device. Its Evaluation tab shows the saved run.
+
+## Run the trained classifier
+
+Run `uv run python -m injclf.serve` and open the printed local URL. This workbench uses the saved ModernBERT checkpoint for scoring. The standalone HTML in the previous section runs the lexical baseline.
+
+To rebuild the weights on a CUDA GPU and verify the merged checkpoint on CPU, run:
+
+```sh
+uv run python -m injclf.train
+uv run python -m injclf.evaluate
+```
+
+Training selects the epoch and threshold by validation F1, breaking epoch ties with validation average precision. Inference scores overlapping windows and uses the highest score for the text. The saved configuration contains the window settings and decision threshold.
+
+| Model | Validation F1 | Published-test F1 | External RAG F1 | External benign texts flagged |
+| --- | ---: | ---: | ---: | ---: |
+| TF-IDF | 0.941 | 0.841 | 0.071 | 78 / 156 |
+| ModernBERT with LoRA | 0.988 | 0.942 | 0.049 | 116 / 156 |
+
+The selected checkpoint caught all three external attacks. Its false positives on benign security questions make automatic blocking unsuitable for this RAG workload. Inputs from a separate, representative development set would be needed to select a threshold for that workload. See the [baseline run](results/tfidf.json), [training run](results/modernbert_lora.json), and [CPU benchmark](results/modernbert_cpu.json).

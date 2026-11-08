@@ -36,7 +36,7 @@ def build(root: Path) -> None:
         "threshold": threshold,
         "splits": {},
     }
-    for name in ("test", "held_out"):
+    for name in ("validation", "test", "held_out"):
         rows = getattr(splits, name)
         labels = [r.label for r in rows]
         probs = scores(rows)

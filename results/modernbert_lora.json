@@ -1,0 +1,132 @@
+{
+  "model": "ModernBERT-base + LoRA",
+  "config": {
+    "base": "answerdotai/ModernBERT-base",
+    "revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+    "seed": 42,
+    "epochs": 6,
+    "batch_size": 8,
+    "learning_rate": 0.00025,
+    "max_length": 256,
+    "stride": 64,
+    "rank": 16,
+    "alpha": 32
+  },
+  "threshold": 0.0014073807979002595,
+  "best_epoch": 6,
+  "validation": [
+    {
+      "epoch": 1,
+      "f1": 0.9302325581395349,
+      "average_precision": 0.981649356567906,
+      "threshold": 0.07083269581198692
+    },
+    {
+      "epoch": 2,
+      "f1": 0.9411764705882353,
+      "average_precision": 0.9819207327398412,
+      "threshold": 0.5008087754249573
+    },
+    {
+      "epoch": 3,
+      "f1": 0.9647058823529412,
+      "average_precision": 0.9912793033371179,
+      "threshold": 0.8317628502845764
+    },
+    {
+      "epoch": 4,
+      "f1": 0.975,
+      "average_precision": 0.9908572637165078,
+      "threshold": 0.6678876876831055
+    },
+    {
+      "epoch": 5,
+      "f1": 0.9876543209876543,
+      "average_precision": 0.9988655700510495,
+      "threshold": 0.9994350075721741
+    },
+    {
+      "epoch": 6,
+      "f1": 0.9879518072289156,
+      "average_precision": 0.9994192799070847,
+      "threshold": 0.0014073807979002595
+    }
+  ],
+  "data": {
+    "dataset_revision": "4f61ecb038e9c3fb77e21034b22511b523772cdd",
+    "seed": 42,
+    "validation_fraction": 0.2,
+    "upstream_rows": {
+      "train": 546,
+      "test": 116
+    },
+    "source_sha256": {
+      "golden.jsonl": "dfb132d0cae27edb8b740a9a47492339746264c0e9b0540e2bbd221f76ae9a7c",
+      "attacks.jsonl": "559ece0e0b50efd874633a565da827d2e31661b3e1e4447cdee0664d39ca7d76"
+    },
+    "splits": {
+      "train": {
+        "total": 436,
+        "benign": 274,
+        "injection": 162,
+        "sha256": "831f260c9efbdd6c8675abcbd22e10566a038b5264d91cf4a004ba11f16748fe"
+      },
+      "validation": {
+        "total": 110,
+        "benign": 69,
+        "injection": 41,
+        "sha256": "f579264037b8c866f920e4b3c43f5230367772fc522caa6a5af3c3e0b24509a5"
+      },
+      "test": {
+        "total": 116,
+        "benign": 56,
+        "injection": 60,
+        "sha256": "65cfb0b06cfae4705eae2f09df3187f7ca46c5a30896c3e3cbc0afbb6db954fe"
+      },
+      "held_out": {
+        "total": 159,
+        "benign": 156,
+        "injection": 3,
+        "sha256": "9bc09f6319b12176fb12cc88f8728b1eea8738e363ef9860c390cd1f5636bd33"
+      }
+    }
+  },
+  "splits": {
+    "validation": {
+      "f1": 0.9879518072289156,
+      "precision": 0.9761904761904762,
+      "recall": 1.0,
+      "roc_auc": 0.9996465182043125,
+      "average_precision": 0.9994192799070847,
+      "benign": 69,
+      "false_positives": 1,
+      "false_positive_rate": 0.014492753623188406,
+      "detected_attacks": 41,
+      "attacks": 41
+    },
+    "test": {
+      "f1": 0.9421487603305785,
+      "precision": 0.9344262295081968,
+      "recall": 0.95,
+      "roc_auc": 0.9842261904761904,
+      "average_precision": 0.9890458640458639,
+      "benign": 56,
+      "false_positives": 4,
+      "false_positive_rate": 0.07142857142857142,
+      "detected_attacks": 57,
+      "attacks": 60
+    },
+    "held_out": {
+      "f1": 0.04918032786885246,
+      "precision": 0.025210084033613446,
+      "recall": 1.0,
+      "roc_auc": 1.0,
+      "average_precision": 1.0,
+      "benign": 156,
+      "false_positives": 116,
+      "false_positive_rate": 0.7435897435897436,
+      "detected_attacks": 3,
+      "attacks": 3
+    }
+  }
+}

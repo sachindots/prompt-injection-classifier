@@ -2,6 +2,13 @@
   "model": "TF-IDF + logistic regression",
   "threshold": 0.3981455218592189,
   "splits": {
+    "validation": {
+      "f1": 0.9411764705882353,
+      "roc_auc": 0.9833863556026865,
+      "average_precision": 0.9722728620947826,
+      "false_positives": 4,
+      "benign": 69
+    },
     "test": {
       "f1": 0.8411214953271028,
       "roc_auc": 0.9467261904761904,

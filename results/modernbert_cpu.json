@@ -1,0 +1,14 @@
+{
+  "model": "ModernBERT-base + LoRA",
+  "cpu": "AMD Ryzen 7 5800H with Radeon Graphics",
+  "threads": 4,
+  "torch": "2.8.0+cu128",
+  "texts": 275,
+  "p50_ms": 51.62734,
+  "p95_ms": 97.41106430000005,
+  "model_directory_bytes": 602046127,
+  "cpu_f1": {
+    "test": 0.9421487603305785,
+    "held_out": 0.04918032786885246
+  }
+}
