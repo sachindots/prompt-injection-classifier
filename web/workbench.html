@@ -1,15 +1,82 @@
 <!doctype html>
 <html lang="en">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Prompt checker · Injection workbench</title>
+<title>Prompt inspection · Boundary</title>
 <style>
-:root{color-scheme:dark;--bg:#101617;--surface:#192223;--line:#3b4948;--mint:#9ee6c4;--muted:#b4c2be;--text:#eff3ed}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.55 Inter,system-ui,sans-serif}main{max-width:1140px;margin:auto;padding:0 clamp(18px,4vw,55px) 40px}header,nav,.actions,footer{display:flex;align-items:center;gap:18px;flex-wrap:wrap}header{justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line)}header b{letter-spacing:-.04em;font-size:19px}.mark{display:inline-block;color:var(--mint);margin-right:8px}a{color:var(--mint);text-underline-offset:5px}nav a{color:var(--muted);text-decoration:none;font-size:15px}nav a[aria-current=page]{color:var(--mint);text-decoration:underline}h1{font-size:clamp(40px,7vw,74px);line-height:1.1;letter-spacing:-.065em;margin:44px 0 10px;font-weight:580}p{margin:0 0 18px;color:var(--muted)}.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);border:1px solid var(--line);margin:28px 0 0;background:var(--surface)}.pane{padding:clamp(18px,3vw,32px)}.pane+.pane{border-left:1px solid var(--line)}label,h2{display:block;font-weight:600;font-size:18px;margin:0 0 12px}textarea{display:block;background:#101818;color:var(--text);font:16px/1.65 ui-monospace,monospace;border:1px solid #53625e;border-radius:4px;width:100%;min-height:200px;padding:15px;resize:vertical}button,select{font:inherit;padding:9px 14px;border:1px solid var(--line);border-radius:4px;background:#202d2b;color:var(--text);cursor:pointer}button.primary{background:var(--mint);color:#122a20;font-weight:650}.actions{gap:10px;margin-top:16px}button:focus-visible,a:focus-visible,summary:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #f0bb74;outline-offset:2px}small,dt,footer{font:13px/1.6 ui-monospace,monospace;color:var(--muted)}#verdict{font-size:29px;line-height:1.25;letter-spacing:-.04em;margin:16px 0;color:var(--mint)}#verdict.flag{color:#f5bd84}details{border-top:1px solid var(--line);padding:14px 0}summary{cursor:pointer}dl{margin:12px 0}dd{margin:0 0 10px}footer{border-top:1px solid var(--line);padding:17px 0;margin-top:28px;justify-content:space-between}.case{margin-bottom:15px}.case select{margin:4px 0}table{width:100%;border-collapse:collapse;margin:10px 0 25px}th,td{text-align:right;border-bottom:1px solid var(--line);padding:12px 6px}th:first-child{text-align:left}.chart{display:inline-block;height:8px;background:var(--mint);vertical-align:middle}.tablewrap{overflow:auto}section h2{margin-top:25px}.pane h2{margin-top:0}@media(max-width:730px){.grid{grid-template-columns:1fr}.pane+.pane{border-left:0;border-top:1px solid var(--line)}h1{margin-top:28px}header{gap:8px}td,th{font-size:14px}}
+:root {
+  color-scheme: dark;
+  --bg: #141416;
+  --panel: #1c1c20;
+  --line: #3b3a40;
+  --text: #f5f0e6;
+  --muted: #b6b2ad;
+  --accent: #ffb474;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+* { box-sizing: border-box }
+[hidden] { display: none !important }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 "Inter", system-ui, sans-serif }
+main { max-width: 1240px; margin: auto; padding: 0 clamp(20px, 5vw, 74px) 32px }
+header, nav, .actions, footer, .pane-title, .case-link { display: flex; align-items: center; gap: 18px }
+header { min-height: 78px; justify-content: space-between; border-bottom: 1px solid var(--line) }
+header b { font-size: 20px; letter-spacing: -.055em; display: flex; align-items: center; gap: 12px }
+.mark { color: var(--accent); font: bold 22px/1 var(--mono); letter-spacing: -.18em; padding-right: 4px }
+a { color: var(--accent); text-underline-offset: 4px }
+nav { align-self: stretch; gap: 24px }
+nav a { display: grid; align-items: center; border-bottom: 2px solid transparent; text-decoration: none; color: var(--muted); font-size: 14px }
+nav a[aria-current=page] { border-color: var(--accent); color: var(--text) }
+h1 { font-size: clamp(46px, 6.5vw, 84px); line-height: 1.05; letter-spacing: -.065em; font-weight: 520; margin: 38px 0 10px }
+h1 em { color: var(--accent); font-family: "Instrument Serif", Georgia, serif; font-weight: 400 }
+p { color: var(--muted); margin: 0; max-width: 68ch }
+.grid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); margin-top: 26px; border: 1px solid var(--line); background: var(--panel) }
+.pane { padding: clamp(18px, 2.5vw, 32px) }
+.pane + .pane { border-left: 1px solid var(--line); background: #222124; display:flex; flex-direction:column }
+.pane-title, .pane h2, dt, small, footer { font: 12px/1.5 var(--mono) }
+.pane-title, .pane h2 { font-weight: 600; text-transform: uppercase; letter-spacing: .09em; color: #d1cac1; margin: 0 0 15px }
+.pane-title { justify-content: space-between }
+#length { font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--muted) }
+textarea { width: 100%; min-height: 190px; resize: vertical; display: block; border: 1px solid #49464a; border-radius: 3px; background: #131315; color: var(--text); font: 15px/1.7 var(--mono); padding: 16px }
+textarea::placeholder { color: #a49e99 }
+button, select { cursor: pointer; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); color: var(--text); font: inherit; padding: 8px 12px }
+.primary { background: var(--accent); color: #26180c; font-weight: 650; padding: 10px 18px; border: 0 }
+.primary:hover { background: #ffc99c }
+.primary:disabled { opacity: .6; cursor: wait }
+.actions { margin-top: 16px; justify-content: space-between; flex-wrap: wrap }
+.case-link { padding: 6px 0; border: 0; background: transparent; color: #d8d2ca; font-size: 14px; text-decoration: underline; text-underline-offset: 4px }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
+.case { border-left: 2px solid var(--accent); padding-left: 12px; margin-bottom: 18px }
+.case label, small { display: block; color: var(--muted) }
+.case select { margin: 5px 0 }
+#verdict { font: 400 clamp(27px,3vw,40px)/1.1 "Instrument Serif",Georgia,serif; letter-spacing: -.035em; margin: 8px 0 10px }
+#verdict.flag { color: var(--accent) }
+#hint, .fieldnote { font-size: 14px }
+details { margin: 15px 0; border-top: 1px solid var(--line); padding-top: 12px }
+summary { cursor: pointer }
+dl { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5px 10px; align-items: baseline }
+dt { color: var(--muted) } dd { margin: 0; font-size: 14px }
+.fieldnote { border-top: 1px solid var(--line); padding-top: 13px; margin-top: auto; line-height: 1.55; color: var(--muted) }
+.fieldnote a { display: block; width: fit-content; font-size: 13px }
+#hint { margin-bottom: 20px }
+footer { justify-content: space-between; flex-wrap: wrap; border-top: 1px solid var(--line); color: var(--muted); margin-top: 28px; padding-top: 14px }
+section > h2 { font-size: 20px; margin: 26px 0 8px }
+table { width: 100%; border-collapse: collapse; background: var(--panel); margin-bottom: 15px; font-variant-numeric: tabular-nums }
+th, td { padding: 13px 10px; text-align: right; border-bottom: 1px solid var(--line) }
+thead { font: 13px/1.4 var(--mono); color: var(--muted) }
+th:first-child { text-align: left }
+.chart { display: inline-block; height: 6px; background: var(--accent) }
+.tablewrap { overflow-x: auto }
+@media(max-width: 730px) {
+  .grid { grid-template-columns: 1fr }
+  .pane + .pane { border-left: 0; border-top: 1px solid var(--line) }
+  header { min-height: 62px } header b { font-size: 16px; gap: 6px } nav { gap: 12px }
+  h1 { margin-top: 28px } nav a { font-size: 13px } td, th { padding: 10px 5px; font-size: 13px }
+}
 </style>
-<main><header><b><span class="mark" aria-hidden="true">▥</span> Injection workbench</b><nav aria-label="Main navigation"><a href="#checker">Checker</a><a href="#evaluation">Evaluation</a></nav></header>
-<section id="checker"><h1>Check a prompt.</h1><p>Scan a user question or retrieved passage for a likely prompt injection.</p>
-<div class="grid"><div class="pane"><div class="case" id="casePanel" hidden><label for="field">RAG case · unsafe SQL</label><select id="field"><option value="question">User question</option><option value="injected_document">Retrieved passage</option></select><br><small id="source"></small></div><label for="input">Text to check</label><textarea id="input" placeholder="Paste text here…" required></textarea><div class="actions"><button class="primary" id="check">Check text</button><button id="example">Try a real RAG case</button></div></div>
-<div class="pane"><h2>Verdict</h2><div role="status" id="verdict">Ready to check</div><p id="hint">The check runs in your browser.</p><details id="details" hidden><summary>Decision details</summary><dl><dt>Model</dt><dd class="model-name"></dd><dt>Injection score</dt><dd id="score"></dd><dt>Flag when score exceeds</dt><dd id="threshold"></dd></dl></details></div></div></section>
-<section id="evaluation" hidden><h1>Evaluation</h1><p><span class="model-name"></span> · threshold selected on validation F1</p><h2>Model results</h2><div class="tablewrap"><table><thead><tr><th>Partition</th><th>F1</th><th>Average precision</th><th>False positives / benign</th></tr></thead><tbody id="metrics"></tbody></table></div><h2>Dataset composition</h2><table><thead><tr><th>Partition</th><th>Relative size</th><th>Benign</th><th>Injection</th></tr></thead><tbody id="counts"></tbody></table><p>The external RAG suite is a smoke test.</p></section>
+<main><header><b><span class="mark" aria-hidden="true">[ / ]</span> Boundary</b><nav aria-label="Main navigation"><a href="#checker">Inspect</a><a href="#evaluation">Evaluation</a></nav></header>
+<section id="checker"><h1>Prompt <em>inspection</em></h1><p>Inspect a question or retrieved passage for instructions that try to steer the model.</p>
+<div class="grid"><div class="pane"><div class="case" id="casePanel" hidden><label for="field">RAG case · unsafe SQL</label><select id="field"><option value="question">User question</option><option value="injected_document">Retrieved passage</option></select><br><small id="source"></small></div><div class="pane-title"><label for="input">Inspection text</label><span id="length"></span></div><textarea id="input" placeholder="Paste the question or passage exactly as the model receives it…" required></textarea><div class="actions"><button class="primary" id="check">Inspect text <span aria-hidden="true">↗</span></button><button class="case-link" id="example">Load a RAG case</button></div></div>
+<div class="pane"><h2>Verdict</h2><div role="status" id="verdict">Awaiting input</div><p id="hint">Submit a passage for on-device classification.</p><details id="details" hidden><summary>Decision details</summary><dl><dt>Model</dt><dd class="model-name"></dd><dt>Injection score</dt><dd id="score"></dd><dt>Decision threshold</dt><dd id="threshold"></dd></dl></details><p class="fieldnote"><span id="limit"></span> <a href="#evaluation">Review evaluation ↗</a></p></div></div></section>
+<section id="evaluation" hidden><h1>Model <em>evaluation</em></h1><p><span class="model-name"></span> · threshold selected on validation F1</p><h2>Model results</h2><div class="tablewrap"><table><thead><tr><th>Partition</th><th>F1</th><th>Average precision</th><th>False positives / benign</th></tr></thead><tbody id="metrics"></tbody></table></div><h2>Dataset composition</h2><table><thead><tr><th>Partition</th><th>Relative size</th><th>Benign</th><th>Injection</th></tr></thead><tbody id="counts"></tbody></table><p>The external RAG suite contains only three attacks. Its benign questions show how often ordinary security guidance triggers the detector.</p></section>
 <footer><span><span class="model-name"></span> · local inference</span><a id="dataset">Training data ↗</a></footer></main>
 <script type="application/json" id="model">__PAYLOAD__</script>
 <script>
@@ -28,14 +95,15 @@ function injectionScore(text) {
   }
   return 1/(1+Math.exp(-(data.intercept+(squared?sum/Math.sqrt(squared):0))));
 }
-const idleHint = data.endpoint ? "The check runs on your local model server." : "The check runs in your browser.";
+const idleHint = data.endpoint ? "Submit a passage to the local classifier." : "Submit a passage for on-device classification.";
 el("hint").textContent=idleHint;
 document.querySelectorAll(".model-name").forEach(node=>node.textContent=data.metrics.model);
 let sequence=0;
 function reset() {
   sequence++;
   el("check").disabled=false;
-  el("verdict").textContent="Ready to check";el("verdict").className="";
+  el("length").textContent=el("input").value.length.toLocaleString()+" chars";
+  el("verdict").textContent=el("input").value.trim()?"Ready to inspect":"Awaiting input";el("verdict").className="";
   el("details").open=false;el("details").hidden=true;el("hint").textContent=idleHint;
 }
 async function check() {
@@ -61,7 +129,7 @@ async function check() {
   const flagged=score>data.metrics.threshold;
   el("verdict").textContent=flagged?"Likely injection":"No injection detected";
   el("verdict").className=flagged?"flag":"";
-  el("hint").textContent=data.metrics.model;
+  el("hint").textContent=flagged?"The injection score exceeded the decision threshold. Review the passage before using it as context.":"The injection score stayed at or below the decision threshold.";
   el("details").hidden=false;el("score").textContent=score.toFixed(6);el("threshold").textContent=data.metrics.threshold.toFixed(6);
 }
 function loadCase(){
@@ -77,7 +145,9 @@ function route(){
   el("evaluation").hidden=!evaluation;el("checker").hidden=evaluation;
   for(const a of document.querySelectorAll("nav a"))a.setAttribute("aria-current",a.hash===(evaluation?"#evaluation":"#checker")?"page":"false");
 }
-window.onhashchange=route;route();
+window.onhashchange=route;route();reset();
+const external=data.metrics.splits.held_out;
+el("limit").textContent=`This model flagged ${external.false_positives} of ${external.benign} benign texts in the external RAG evaluation.`;
 const names={train:"Training",validation:"Validation",test:"Test",held_out:"External RAG"};
 for(const [name,s] of Object.entries(data.metrics.splits))
   el("metrics").insertAdjacentHTML("beforeend",`<tr><th>${names[name]}</th><td>${s.f1.toFixed(3)}</td><td>${s.average_precision.toFixed(3)}</td><td>${s.false_positives} / ${s.benign}</td></tr>`);
