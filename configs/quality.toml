@@ -1,0 +1,23 @@
+model = "Horizon-Labs/prompt-injection-guard-small"
+revision = "359521fbaf8a9fe551a87f562669a08b1a26773b"
+dataset = "Horizon-Labs/prompt-injection-eval-suite"
+dataset_revision = "d6dd8d499d0087661afd6cd7ecdfcf94a5af1c05"
+# Freeze complete small suites and a deterministic per-label sample for larger suites.
+exam = ["bipia", "notinject", "llmail_phase2", "boundary_pairs_test"]
+max_per_label = 200
+seed = 42
+window = 512
+stride = 128
+threads = 4
+epochs = 4
+learning_rate = 0.00002
+train_batch = 16
+train_per_label_source = 900
+[training.agentic]
+repo = "3nesdeniz/agentic-prompt-injection-5k"
+revision = "e658d94dcafc133e3a4483f9f9aa13507f3848c4"
+file = "data/train.parquet"
+[training.core]
+repo = "neuralchemy/Prompt-injection-dataset"
+revision = "7d70432dfcf47a821612cbf9d34e9d9e3ad20e75"
+file = "core/train-00000-of-00001.parquet"

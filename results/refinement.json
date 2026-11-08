@@ -1,0 +1,139 @@
+{
+  "config": {
+    "model": "Horizon-Labs/prompt-injection-guard-small",
+    "revision": "359521fbaf8a9fe551a87f562669a08b1a26773b",
+    "dataset": "Horizon-Labs/prompt-injection-eval-suite",
+    "dataset_revision": "d6dd8d499d0087661afd6cd7ecdfcf94a5af1c05",
+    "exam": [
+      "bipia",
+      "notinject",
+      "llmail_phase2",
+      "boundary_pairs_test"
+    ],
+    "max_per_label": 200,
+    "seed": 42,
+    "window": 512,
+    "stride": 128,
+    "threads": 4,
+    "epochs": 4,
+    "learning_rate": 2e-05,
+    "train_batch": 16,
+    "train_per_label_source": 900,
+    "training": {
+      "agentic": {
+        "repo": "3nesdeniz/agentic-prompt-injection-5k",
+        "revision": "e658d94dcafc133e3a4483f9f9aa13507f3848c4",
+        "file": "data/train.parquet"
+      },
+      "core": {
+        "repo": "neuralchemy/Prompt-injection-dataset",
+        "revision": "7d70432dfcf47a821612cbf9d34e9d9e3ad20e75",
+        "file": "core/train-00000-of-00001.parquet"
+      }
+    }
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "mean_validation_f1": 0.5619517543859649,
+      "threshold": 0.9994621474622762,
+      "splits": {
+        "validation": {
+          "attacks": 41,
+          "detected_attacks": 16,
+          "benign": 69,
+          "false_positives": 0,
+          "f1": 0.5614035087719298,
+          "average_precision": 0.9827836498945766
+        },
+        "gateway_validation": {
+          "attacks": 68,
+          "detected_attacks": 27,
+          "benign": 98,
+          "false_positives": 1,
+          "f1": 0.5625,
+          "average_precision": 0.8267782415572538
+        }
+      }
+    },
+    {
+      "epoch": 2,
+      "mean_validation_f1": 0.6196969696969696,
+      "threshold": 0.9999081690879763,
+      "splits": {
+        "validation": {
+          "attacks": 41,
+          "detected_attacks": 19,
+          "benign": 69,
+          "false_positives": 0,
+          "f1": 0.6333333333333333,
+          "average_precision": 0.9919489756515025
+        },
+        "gateway_validation": {
+          "attacks": 68,
+          "detected_attacks": 30,
+          "benign": 98,
+          "false_positives": 1,
+          "f1": 0.6060606060606061,
+          "average_precision": 0.9142655259836499
+        }
+      }
+    },
+    {
+      "epoch": 3,
+      "mean_validation_f1": 0.5072927072927073,
+      "threshold": 0.9999986729867231,
+      "splits": {
+        "validation": {
+          "attacks": 41,
+          "detected_attacks": 14,
+          "benign": 69,
+          "false_positives": 0,
+          "f1": 0.509090909090909,
+          "average_precision": 0.9832562221565475
+        },
+        "gateway_validation": {
+          "attacks": 68,
+          "detected_attacks": 23,
+          "benign": 98,
+          "false_positives": 0,
+          "f1": 0.5054945054945055,
+          "average_precision": 0.9039099378837563
+        }
+      }
+    },
+    {
+      "epoch": 4,
+      "mean_validation_f1": 0.44432525209182583,
+      "threshold": 0.9999987130859235,
+      "splits": {
+        "validation": {
+          "attacks": 41,
+          "detected_attacks": 18,
+          "benign": 69,
+          "false_positives": 0,
+          "f1": 0.6101694915254238,
+          "average_precision": 0.9822930934820955
+        },
+        "gateway_validation": {
+          "attacks": 68,
+          "detected_attacks": 11,
+          "benign": 98,
+          "false_positives": 0,
+          "f1": 0.27848101265822783,
+          "average_precision": 0.8896149325039386
+        }
+      }
+    }
+  ],
+  "new_training_counts": {
+    "agentic": 1800,
+    "core": 1800
+  },
+  "exam_sha256": {
+    "bipia": "035ce27ece1f896620bf052ef214e17ad67c799de332475bae57a907dcf59f67",
+    "notinject": "9b18dd2fcd6882b3506010305ff9ec433260df481473a2cc98eedc446b0b0183",
+    "llmail_phase2": "bf7a82422ee3666eaa29adf927eb73e19bd9d3fe60aa0d67bdf409dcc78f9577",
+    "boundary_pairs_test": "3970375a55356eb2abbcb8e12227be4069d8414174d8bdea22e848f378fff961"
+  }
+}

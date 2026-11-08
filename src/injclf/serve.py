@@ -58,6 +58,12 @@ def main() -> None:
         "stats": stats,
         "case": metrics["case"],
     }
+    comparison = {}
+    for key in ("gateway", "refined", "horizon"):
+        report = root / f"results/quality_{key}.json"
+        if report.exists():
+            comparison[key] = json.loads(report.read_text())
+    payload["quality"] = comparison
     benchmark = root / "results/gateway_latency.json"
     if benchmark.exists():
         latency = json.loads(benchmark.read_text())

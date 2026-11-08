@@ -1,0 +1,155 @@
+{
+  "model": "horizon",
+  "config": {
+    "model": "Horizon-Labs/prompt-injection-guard-small",
+    "revision": "359521fbaf8a9fe551a87f562669a08b1a26773b",
+    "dataset": "Horizon-Labs/prompt-injection-eval-suite",
+    "dataset_revision": "d6dd8d499d0087661afd6cd7ecdfcf94a5af1c05",
+    "exam": [
+      "bipia",
+      "notinject",
+      "llmail_phase2",
+      "boundary_pairs_test"
+    ],
+    "max_per_label": 200,
+    "seed": 42,
+    "window": 512,
+    "stride": 128,
+    "threads": 4,
+    "epochs": 4,
+    "learning_rate": 2e-05,
+    "train_batch": 16,
+    "train_per_label_source": 900,
+    "training": {
+      "agentic": {
+        "repo": "3nesdeniz/agentic-prompt-injection-5k",
+        "revision": "e658d94dcafc133e3a4483f9f9aa13507f3848c4",
+        "file": "data/train.parquet"
+      },
+      "core": {
+        "repo": "neuralchemy/Prompt-injection-dataset",
+        "revision": "7d70432dfcf47a821612cbf9d34e9d9e3ad20e75",
+        "file": "core/train-00000-of-00001.parquet"
+      }
+    }
+  },
+  "threshold": 0.8054524107524584,
+  "exam_sha256": {
+    "bipia": "035ce27ece1f896620bf052ef214e17ad67c799de332475bae57a907dcf59f67",
+    "notinject": "9b18dd2fcd6882b3506010305ff9ec433260df481473a2cc98eedc446b0b0183",
+    "llmail_phase2": "bf7a82422ee3666eaa29adf927eb73e19bd9d3fe60aa0d67bdf409dcc78f9577",
+    "boundary_pairs_test": "3970375a55356eb2abbcb8e12227be4069d8414174d8bdea22e848f378fff961"
+  },
+  "sets": {
+    "bipia": {
+      "attacks": 200,
+      "detected_attacks": 54,
+      "benign": 178,
+      "false_positives": 2,
+      "f1": 0.421875,
+      "average_precision": 0.8305452351111562,
+      "accuracy": 0.6084656084656085,
+      "p50_ms": 328.8069395,
+      "p95_ms": 1916.3394919499997
+    },
+    "notinject": {
+      "attacks": 0,
+      "detected_attacks": 0,
+      "benign": 200,
+      "false_positives": 2,
+      "f1": null,
+      "average_precision": null,
+      "accuracy": 0.99,
+      "p50_ms": 16.5576185,
+      "p95_ms": 23.098624599999997
+    },
+    "llmail_phase2": {
+      "attacks": 200,
+      "detected_attacks": 197,
+      "benign": 0,
+      "false_positives": 0,
+      "f1": null,
+      "average_precision": null,
+      "accuracy": 0.985,
+      "p50_ms": 105.9048375,
+      "p95_ms": 760.624534049999
+    },
+    "boundary_pairs_test": {
+      "attacks": 120,
+      "detected_attacks": 119,
+      "benign": 120,
+      "false_positives": 2,
+      "f1": 0.9875518672199171,
+      "average_precision": 0.9919337693179711,
+      "accuracy": 0.9875,
+      "p50_ms": 23.298734500000002,
+      "p95_ms": 60.71545029999998
+    },
+    "validation": {
+      "attacks": 41,
+      "detected_attacks": 29,
+      "benign": 69,
+      "false_positives": 0,
+      "f1": 0.8285714285714286,
+      "average_precision": 0.9978319783197833,
+      "accuracy": 0.8909090909090909,
+      "p50_ms": 15.016338000000001,
+      "p95_ms": 39.3198468
+    },
+    "gateway_validation": {
+      "attacks": 68,
+      "detected_attacks": 38,
+      "benign": 98,
+      "false_positives": 0,
+      "f1": 0.7169811320754716,
+      "average_precision": 0.8963600579319364,
+      "accuracy": 0.8192771084337349,
+      "p50_ms": 31.7638805,
+      "p95_ms": 108.38311925
+    },
+    "gateway_audit": {
+      "attacks": 128,
+      "detected_attacks": 60,
+      "benign": 185,
+      "false_positives": 3,
+      "f1": 0.6282722513089005,
+      "average_precision": 0.83677555810966,
+      "accuracy": 0.7731629392971247,
+      "p50_ms": 23.685695,
+      "p95_ms": 72.20988559999996
+    },
+    "test": {
+      "attacks": 60,
+      "detected_attacks": 26,
+      "benign": 56,
+      "false_positives": 0,
+      "f1": 0.6046511627906976,
+      "average_precision": 0.982169852203543,
+      "accuracy": 0.7068965517241379,
+      "p50_ms": 15.865741499999999,
+      "p95_ms": 48.10860675
+    },
+    "held_out": {
+      "attacks": 3,
+      "detected_attacks": 3,
+      "benign": 156,
+      "false_positives": 1,
+      "f1": 0.8571428571428571,
+      "average_precision": 1.0,
+      "accuracy": 0.9937106918238994,
+      "p50_ms": 18.134034,
+      "p95_ms": 24.4263135
+    },
+    "extraction_challenge": {
+      "attacks": 430,
+      "detected_attacks": 372,
+      "benign": 0,
+      "false_positives": 0,
+      "f1": null,
+      "average_precision": null,
+      "accuracy": 0.8651162790697674,
+      "p50_ms": 27.6347455,
+      "p95_ms": 109.35301064999837
+    }
+  }
+}

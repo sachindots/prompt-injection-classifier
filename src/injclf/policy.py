@@ -46,9 +46,7 @@ def counts(rows, threshold):
     }
 
 
-def main():
-    root = Path(__file__).resolve().parents[2]
-    c = tomllib.loads((root / "configs/gateway.toml").read_text())
+def policy_corpus(root: Path, c: dict):
     folder = root / "artifacts/policy-sources"
     folder.mkdir(exist_ok=True, parents=True)
     for file, url in [("purple.json", c["attack_url"])]:
@@ -119,6 +117,13 @@ def main():
             if key and key not in seen:
                 seen.add(key)
                 corpus[part].append((suite, text, 1))
+    return corpus, splits, stats
+
+
+def main():
+    root = Path(__file__).resolve().parents[2]
+    c = tomllib.loads((root / "configs/gateway.toml").read_text())
+    corpus, splits, stats = policy_corpus(root, c)
     model, tokenizer = load_detector()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     encoder = model.base_model.to(device).eval()

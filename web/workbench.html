@@ -79,7 +79,7 @@ pre { overflow:auto; padding:18px; background:var(--panel); border-left:2px soli
 <section id="checker"><h1>Prompt <em>inspection</em></h1><p>Inspect a question or retrieved passage for instructions that try to steer the model.</p>
 <div class="grid"><div class="pane"><div class="case" id="casePanel" hidden><label for="field">RAG case · unsafe SQL</label><select id="field"><option value="question">User question</option><option value="injected_document">Retrieved passage</option></select><br><small id="source"></small></div><div class="pane-title"><label for="input">Inspection text</label><span id="length"></span></div><textarea id="input" placeholder="Paste the question or passage exactly as the model receives it…" required></textarea><div class="actions"><button class="primary" id="check">Inspect text <span aria-hidden="true">↗</span></button><button class="case-link" id="example">Load a RAG case</button></div></div>
 <div class="pane"><h2>Verdict</h2><div role="status" id="verdict">Awaiting input</div><p id="hint">Submit a passage for on-device classification.</p><details id="details" hidden><summary>Decision details</summary><dl><dt>Model</dt><dd class="model-name"></dd><dt>Injection score</dt><dd id="score"></dd><dt>Decision threshold</dt><dd id="threshold"></dd></dl></details><p class="fieldnote"><span id="limit"></span> <a href="#evaluation">Review evaluation ↗</a></p></div></div></section>
-<section id="evaluation" hidden><h1>Model <em>evaluation</em></h1><p><span class="model-name"></span> · <span id="policyNote">threshold selected on validation F1</span></p><h2>Model results</h2><div class="tablewrap"><table><thead><tr><th>Partition</th><th>F1</th><th>Average precision</th><th>Attacks detected / total</th><th>Benign flagged / total</th></tr></thead><tbody id="metrics"></tbody></table></div><h2>Original benchmark composition</h2><table><thead><tr><th>Partition</th><th>Relative size</th><th>Benign</th><th>Injection</th></tr></thead><tbody id="counts"></tbody></table><p id="speed" hidden></p><p>The external RAG suite contains only three attacks. Its benign questions show how often ordinary security guidance triggers the detector.</p></section>
+<section id="evaluation" hidden><h1>Model <em>evaluation</em></h1><p><span class="model-name"></span> · <span id="policyNote">threshold selected on validation F1</span></p><h2>Model results</h2><div class="tablewrap"><table><thead><tr><th>Partition</th><th>F1</th><th>Average precision</th><th>Attacks detected / total</th><th>Benign flagged / total</th></tr></thead><tbody id="metrics"></tbody></table></div><div id="publicExam" hidden><h2>Public benchmark comparison</h2><p>All detectors see the same texts. A dash marks a class absent from that benchmark.</p><label for="comparisonModel">Detector</label><select id="comparisonModel"></select><div class="tablewrap"><table><thead><tr><th>Benchmark</th><th>Accuracy</th><th>Attacks caught</th><th>Benign flagged</th></tr></thead><tbody id="examRows"></tbody></table></div><p>These samples are new to Boundary. Horizon Labs also publishes this evaluation suite and has previously evaluated its detector on these benchmarks.</p></div><h2>Original benchmark composition</h2><table><thead><tr><th>Partition</th><th>Relative size</th><th>Benign</th><th>Injection</th></tr></thead><tbody id="counts"></tbody></table><p id="speed" hidden></p><p>The external RAG suite contains only three attacks. Its benign questions show how often ordinary security guidance triggers the detector.</p></section>
 <section id="docs" hidden><h1>Decision <em>API</em></h1>
 <p>Boundary checks one text before your application calls a model. Run it alongside your chatbot backend and send requests over loopback.</p>
 <h2>POST /v1/check</h2>
@@ -198,6 +198,22 @@ if(data.latency){
 const names={extraction_challenge:"Human extraction challenge",gateway_validation:"Gateway validation",gateway_audit:"Gateway audit",train:"Training",validation:"Validation",test:"Test",held_out:"External RAG"};
 for(const [name,s] of Object.entries(data.metrics.splits))
   el("metrics").insertAdjacentHTML("beforeend",`<tr><th>${names[name]}</th><td>${s.f1?.toFixed(3) ?? "—"}</td><td>${s.average_precision?.toFixed(3) ?? "—"}</td><td>${s.detected_attacks ?? "—"} / ${s.attacks ?? "—"}</td><td>${s.benign ? s.false_positives+" / "+s.benign : "—"}</td></tr>`);
+const benchmarkNames={bipia:"BIPIA passages",notinject:"NotInject benign prompts",llmail_phase2:"LLMail Phase 2",boundary_pairs_test:"Agentic boundary pairs"};
+const detectorNames={gateway:"Boundary · original",refined:"Boundary · additional fine-tuning",horizon:"Horizon Labs · small ONNX"};
+if(Object.keys(data.quality || {}).length){
+  el("publicExam").hidden=false;
+  for(const key of Object.keys(data.quality))el("comparisonModel").add(new Option(detectorNames[key],key));
+  function showExam(){
+    const report=data.quality[el("comparisonModel").value];
+    el("examRows").replaceChildren();
+    for(const [key,title] of Object.entries(benchmarkNames)){
+      const m=report.sets[key], row=el("examRows").insertRow();
+      for(const value of [title,(100*m.accuracy).toFixed(1)+"%",m.attacks?m.detected_attacks+" / "+m.attacks:"—",m.benign?m.false_positives+" / "+m.benign:"—"]) row.insertCell().textContent=value;
+    }
+  }
+  el("comparisonModel").onchange=showExam;
+  showExam();
+}
 const maxSize=Math.max(...Object.values(data.stats.splits).map(s=>s.total));
 for(const [name,s] of Object.entries(data.stats.splits))
   el("counts").insertAdjacentHTML("beforeend",`<tr><th>${names[name]}</th><td><span class="chart" style="width:${s.total/maxSize*100}%"></span></td><td>${s.benign}</td><td>${s.injection}</td></tr>`);

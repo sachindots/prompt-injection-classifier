@@ -70,3 +70,20 @@ The selection criterion averages F1 on the original and gateway validation sets 
 Restart the server after rebuilding the policy. With an idle server running, use `uv run python -m injclf.benchmark` for warmed end-to-end HTTP latency and decision parity on the published test and external RAG sets. The server binds to loopback and limits inference to one active request per process. Under contention it returns an explicit busy response. Public hosting needs a separately operated authenticated gateway with TLS, rate limits, and load testing.
 
 The selected six-layer gateway detected 59 of 128 grouped audit attacks and flagged 2 of 185 benign audit texts. On the external RAG suite it detected 2 of 3 attacks and flagged 0 of 156 benign texts. See the denominators and the positive-only extraction challenge in [the policy run](results/gateway.json). The [HTTP benchmark](results/gateway_latency.json) records the hardware and timing protocol.
+
+## Public training and evaluation resources
+
+The additional training experiment uses the published training partitions from [Agentic Prompt-Injection 5K](https://huggingface.co/datasets/3nesdeniz/agentic-prompt-injection-5k) by Enes Deniz (CC BY 4.0) and [neuralchemy’s core dataset](https://huggingface.co/datasets/neuralchemy/Prompt-injection-dataset) (Apache 2.0). Both contain attack and benign examples. The run removes normalized exact-text overlap with the original corpus and reserves the public exam first. Semantic overlap and the pretraining history of external models remain uncertain.
+
+The public exam checks different failure modes:
+
+- [Microsoft BIPIA](https://github.com/microsoft/BIPIA) provides indirect-injection scenarios. The evaluation uses the published derived clean and attacked contexts.
+- [InjecGuard / NotInject](https://github.com/leolee99/InjecGuard) measures false alarms on benign prompts containing words common in attacks.
+- [Microsoft LLMail-Inject](https://huggingface.co/datasets/microsoft/llmail-inject-challenge) provides adaptive email attacks. The sampled Phase 2 set measures attack detection only.
+- [Agentic boundary pairs](https://huggingface.co/datasets/3nesdeniz/agentic-prompt-injection-boundary-pairs) test distinctions between benign and malicious instructions in similar settings.
+
+The exact evaluation snapshot, per-class sampling limit, and source revisions are in `configs/quality.toml`. Examples come from the [Horizon Labs evaluation suite](https://huggingface.co/datasets/Horizon-Labs/prompt-injection-eval-suite). The [Horizon Labs specialist](https://huggingface.co/Horizon-Labs/prompt-injection-guard-small) has previously been evaluated by its publisher on this suite. These results support local comparisons and do not establish independence from every model developer.
+
+To reproduce, run `python -m injclf.refine` in the project environment, then `python -m injclf.quality gateway`, `python -m injclf.quality refined`, and `python -m injclf.quality horizon`. Each detector's threshold is fixed before the exam runs. Counts and per-source accuracy are reported separately for attack-only, benign-only and mixed sets.
+
+On BIPIA, the deployed gateway caught 191 of 200 attacks and blocked 155 of 178 clean passages. Horizon caught 54 of 200 and blocked 2 of 178. On the boundary-pair set, Horizon caught 119 of 120 attacks and blocked 2 of 120 benign texts. The deployed gateway caught 14 and blocked 9. Neither detector met the recall and false-alarm targets across workloads. The gateway remains the low-latency default. Test the blocking policy on representative traffic before enabling enforcement. Compare the [deployed gateway](results/quality_gateway.json), [additional fine-tuning](results/quality_refined.json), and [Horizon specialist](results/quality_horizon.json). Per-text timings in these reports include tokenization and scoring. The Horizon run used CPU and the Boundary runs used GPU.
