@@ -64,6 +64,9 @@ def main() -> None:
         if report.exists():
             comparison[key] = json.loads(report.read_text())
     payload["quality"] = comparison
+    paired = root / "results/paired.json"
+    if paired.exists():
+        payload["paired"] = json.loads(paired.read_text())["test"]
     benchmark = root / "results/gateway_latency.json"
     if benchmark.exists():
         latency = json.loads(benchmark.read_text())

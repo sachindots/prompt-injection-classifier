@@ -1,0 +1,12 @@
+revision = "a004b69ec0dd446e0afd461d98cb5e96e120a5d0"
+domains = ["code", "email", "table"]
+seed = 42
+train_documents_per_domain = 35
+validation_documents_per_domain = 8
+regularization = 8.0
+[fresh_test]
+documents_per_source = 50
+min_chars = 200
+max_chars = 12000
+python_url = "https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tar.xz"
+python_sha256 = "795c34f44df45a0e9b9710c8c71c15c671871524cd412ca14def212e8ccb155d"

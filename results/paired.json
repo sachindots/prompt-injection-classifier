@@ -1,0 +1,179 @@
+{
+  "config": {
+    "revision": "a004b69ec0dd446e0afd461d98cb5e96e120a5d0",
+    "domains": [
+      "code",
+      "email",
+      "table"
+    ],
+    "seed": 42,
+    "train_documents_per_domain": 35,
+    "validation_documents_per_domain": 8,
+    "regularization": 8.0,
+    "fresh_test": {
+      "documents_per_source": 50,
+      "min_chars": 200,
+      "max_chars": 12000,
+      "python_url": "https://www.python.org/ftp/python/3.12.0/Python-3.12.0.tar.xz",
+      "python_sha256": "795c34f44df45a0e9b9710c8c71c15c671871524cd412ca14def212e8ccb155d"
+    }
+  },
+  "splits": {
+    "validation": {
+      "documents": 24,
+      "domains": {
+        "code": 8,
+        "email": 8,
+        "table": 8
+      },
+      "pairs_sha256": "1832eea1590f6c7e02bff3abb091c77379b2af59bd0b761b844d00b3cbc516ce"
+    },
+    "train": {
+      "documents": 95,
+      "domains": {
+        "code": 35,
+        "email": 25,
+        "table": 35
+      },
+      "pairs_sha256": "0421386a08787c7b1a9e534edcd1eb37a4863aa5e2393fd0b17795b479b76ea6"
+    },
+    "bipia_test": {
+      "documents": 178,
+      "domains": {
+        "code": 50,
+        "email": 44,
+        "table": 84
+      },
+      "pairs_sha256": "323b1e3635d727526a3b05f9c063105f62089a5bde0c31906380234a05a2d602"
+    },
+    "test": {
+      "documents": 100,
+      "domains": {
+        "cpython": 50,
+        "usenet": 50
+      },
+      "pairs_sha256": "a60cf1d85b3a8221506cf48efc20e91ffe54c4644350e4140dd20f20878ededd"
+    }
+  },
+  "validation": {
+    "pairs": 24,
+    "both_correct": 19,
+    "attacks_detected": 20,
+    "benign_flagged": 1,
+    "attack_scored_higher": 24
+  },
+  "test": {
+    "paired_tfidf": {
+      "threshold": 0.9178694069432752,
+      "pairs": 100,
+      "both_correct": 68,
+      "attacks_detected": 76,
+      "benign_flagged": 9,
+      "attack_scored_higher": 96,
+      "domains": {
+        "cpython": {
+          "pairs": 50,
+          "both_correct": 42,
+          "attacks_detected": 46,
+          "benign_flagged": 4,
+          "attack_scored_higher": 50
+        },
+        "usenet": {
+          "pairs": 50,
+          "both_correct": 26,
+          "attacks_detected": 30,
+          "benign_flagged": 5,
+          "attack_scored_higher": 46
+        }
+      }
+    },
+    "deployed_gateway": {
+      "threshold": 0.843658155443892,
+      "pairs": 100,
+      "both_correct": 6,
+      "attacks_detected": 80,
+      "benign_flagged": 74,
+      "attack_scored_higher": 70,
+      "domains": {
+        "cpython": {
+          "pairs": 50,
+          "both_correct": 5,
+          "attacks_detected": 30,
+          "benign_flagged": 25,
+          "attack_scored_higher": 32
+        },
+        "usenet": {
+          "pairs": 50,
+          "both_correct": 1,
+          "attacks_detected": 50,
+          "benign_flagged": 49,
+          "attack_scored_higher": 38
+        }
+      }
+    }
+  },
+  "bipia_test": {
+    "paired_tfidf": {
+      "threshold": 0.9178694069432752,
+      "pairs": 178,
+      "both_correct": 89,
+      "attacks_detected": 89,
+      "benign_flagged": 0,
+      "attack_scored_higher": 171,
+      "domains": {
+        "code": {
+          "pairs": 50,
+          "both_correct": 46,
+          "attacks_detected": 46,
+          "benign_flagged": 0,
+          "attack_scored_higher": 50
+        },
+        "email": {
+          "pairs": 44,
+          "both_correct": 3,
+          "attacks_detected": 3,
+          "benign_flagged": 0,
+          "attack_scored_higher": 42
+        },
+        "table": {
+          "pairs": 84,
+          "both_correct": 40,
+          "attacks_detected": 40,
+          "benign_flagged": 0,
+          "attack_scored_higher": 79
+        }
+      }
+    },
+    "deployed_gateway": {
+      "threshold": 0.843658155443892,
+      "pairs": 178,
+      "both_correct": 10,
+      "attacks_detected": 166,
+      "benign_flagged": 157,
+      "attack_scored_higher": 116,
+      "domains": {
+        "code": {
+          "pairs": 50,
+          "both_correct": 10,
+          "attacks_detected": 39,
+          "benign_flagged": 30,
+          "attack_scored_higher": 33
+        },
+        "email": {
+          "pairs": 44,
+          "both_correct": 0,
+          "attacks_detected": 44,
+          "benign_flagged": 44,
+          "attack_scored_higher": 26
+        },
+        "table": {
+          "pairs": 84,
+          "both_correct": 0,
+          "attacks_detected": 83,
+          "benign_flagged": 83,
+          "attack_scored_higher": 57
+        }
+      }
+    }
+  }
+}
