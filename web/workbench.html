@@ -91,10 +91,15 @@ pre { overflow:auto; padding:18px; background:var(--panel); border-left:2px soli
 <h2>Failure handling</h2><p>400 means invalid input, 413 means the body exceeds the limit, and 415 requires JSON content. A request can wait up to 100 ms for the inference slot. If the worker is still busy, the service returns 503. On a timeout, malformed response, or any error, withhold the provider call. Offer a retry for temporary failures.</p>
 <h2>Policy and sources</h2><p>The gateway chooses its cutoff against a 2% empirical benign-flag budget in each validation group. Security question titles and ordinary cheat-sheet passages serve as benign examples by source. Attack variants and documents are grouped before splitting. Your chatbot’s traffic may have a different error rate. The held-out audit groups were inspected during development; treat these results as an observed benchmark.</p><p><a href="https://github.com/meta-llama/PurpleLlama/tree/f64eebd53003a87d9c2d2a3a712133534c214c8d/CybersecurityBenchmarks/datasets/prompt_injection">CyberSecEval</a> · <a href="https://github.com/OWASP/CheatSheetSeries/tree/757270a26306e5edda9957bb7f86cfcde03c30f9">OWASP Cheat Sheet Series</a> · <a href="https://security.stackexchange.com/questions">Information Security Stack Exchange</a> · <a href="https://github.com/HumanCompatibleAI/tensor-trust-data">Tensor Trust</a></p><h2>Deployment boundary</h2><p>This service listens on the same machine as your application. Put authentication, TLS, and rate limits at your own application boundary before offering remote access. Inspect each untrusted passage and user message separately. The model has been evaluated on text inputs. Tools still need their own authorization checks.</p></section>
 <section id="how-to" hidden><h1>Protect a <em>chatbot</em></h1>
-<p>Place the decision in the backend that owns the provider credentials. Only the allow branch reaches the chatbot.</p>
+<p>Place the decision in the backend that owns the provider credentials. Choose shadow mode to observe decisions or enforcement to stop flagged messages.</p>
 <h2>Start the local service</h2><pre><code>uv sync --locked
 uv run python -m injclf.serve</code></pre><p>Run these commands from the classifier checkout with the gateway encoder and classification head in <code>artifacts/gateway</code> and the matching gateway policy in <code>results/gateway.json</code>.</p>
-<h2>Guard your provider call</h2><pre><code>from injclf.gateway import guarded_call
+<h2>Observe traffic in shadow mode</h2><pre><code>import logging
+from injclf.gateway import shadow_call
+
+logging.basicConfig(level=logging.INFO)
+reply = shadow_call(user_text, send_to_provider)</code></pre><p>Shadow mode forwards every message after inspection, including flagged messages and requests that time out. Keep existing provider protections enabled. Count <code>shadow allow</code>, <code>shadow block</code>, and <code>shadow inspection_error</code> events from the <code>injclf.gateway</code> logger. Each event records only the outcome. Check the decisions against labeled traffic before enabling enforcement.</p>
+<h2>Enforce decisions on your provider call</h2><pre><code>from injclf.gateway import guarded_call
 
 def reply(user_text, send_to_provider):
     try:

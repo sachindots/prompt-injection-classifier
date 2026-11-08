@@ -1,6 +1,23 @@
 # Prompt-injection classifier
 
-For the gateway bundle, extract the archive, run `uv sync --locked` from its root, then `uv run python -m injclf.serve`. Open [the integration guide](http://127.0.0.1:8765/#how-to). The bundle includes the serving checkpoint. Rebuilding the experiments also requires the sibling RAG data and the sources described below.
+Boundary scores user messages and retrieved passages before a chatbot receives them. The workbench runs locally and shows which attacks the detector missed and which benign inputs it flagged.
+
+## Start the gateway
+
+Clone the repository, extract the [serving checkpoint](https://github.com/sachindots/prompt-injection-classifier/releases/download/gateway-v1/boundary-checkpoint.zip) into its root, and start the server:
+
+```sh
+git clone https://github.com/sachindots/prompt-injection-classifier.git
+cd prompt-injection-classifier
+curl -fL -o boundary-checkpoint.zip https://github.com/sachindots/prompt-injection-classifier/releases/download/gateway-v1/boundary-checkpoint.zip
+unzip boundary-checkpoint.zip
+uv sync --locked
+uv run python -m injclf.serve
+```
+
+Open the [workbench](http://127.0.0.1:8765/) or the [integration guide](http://127.0.0.1:8765/#how-to). Startup verifies the encoder and head against the committed policy. Rebuilding the training experiments also requires the sibling RAG dataset and the public sources below.
+
+## Prepare the training data
 
 Build the data splits for training a detector that scores user questions and retrieved passages independently.
 
@@ -60,6 +77,20 @@ reply = guarded_call(user_message, send_to_provider)
 ```
 
 Supply your existing provider function as `send_to_provider`. A block raises `PermissionError` before that function runs. Inspection failures propagate so the caller can return a temporary error. Check each retrieved passage separately before adding it to model context. The legacy local `/score` endpoint uses the original full model and returns its raw score.
+
+### Observe decisions before enforcing
+
+Keep your existing provider protections enabled. Use `shadow_call` on the backend to send every message through after inspection, including flagged messages and requests that time out. The provider call waits for inspection to finish or fail.
+
+```python
+import logging
+from injclf.gateway import shadow_call
+
+logging.basicConfig(level=logging.INFO)
+reply = shadow_call(user_message, send_to_provider)
+```
+
+The `injclf.gateway` logger records `shadow allow`, `shadow block`, or `shadow inspection_error`. These events contain only the outcome. Count inspection errors separately and compare would-be blocks with labeled benign messages and attacks before switching to `guarded_call`. Enforcing requests still require an explicit allow.
 
 ### Reproduce the gateway policy
 
